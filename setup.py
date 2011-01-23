@@ -18,16 +18,16 @@ if sys.argv[-1] == "publish":
 required = []
 
 setup(
-	name='wolfram',
+	name='clint',
 	version='0.0.1',
-	description='Python wrapper for the Wolfram Alpha API, v2',
+	description='Python Command-line Application Helpers',
 	long_description=open('README.rst').read() + '\n\n' +
 	                 open('HISTORY.rst').read(),
 	author='Kenneth Reitz',
 	author_email='me@kennethreitz.com',
-	url='https://github.com/kennethreitz/wolfram',
+	url='https://github.com/kennethreitz/clint',
 	packages= [
-		'wolfram',
+		'clint',
 	],
 	install_requires=required,
 	license='MIT',
