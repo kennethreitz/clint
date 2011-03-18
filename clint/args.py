@@ -25,6 +25,7 @@ class Args(object):
         except (IndexError, TypeError):
             return False
 
+
     def remove(self, x):
         """Removes given arg (or list thereof) from Args object."""
 
@@ -96,7 +97,7 @@ class Args(object):
             except ValueError:
                 return None
                 
-            return self._args[i+1]
+            return self._args[i + 1]
             
         except IndexError:
             return None
@@ -105,7 +106,7 @@ class Args(object):
     def everything_after(self, x):
         """Returns all arguments after given index."""
         try:
-            return self._args[x+1:]
+            return self._args[x + 1:]
         except IndexError:
             return None
 
