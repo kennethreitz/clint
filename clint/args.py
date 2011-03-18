@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+import sys
+
 class Args(object):
     """CLI Argument managment."""
     
@@ -124,7 +128,8 @@ class Args(object):
         """Returns all arguments."""
         
         return self._args
-        
+    
+    @propery    
     def no_flags(self):
         """Returns Arg object excluding flagged arguments."""
 
@@ -139,3 +144,22 @@ class Args(object):
         fake_args._args = arg_list
 
         return fake_args
+
+    @property
+    def only_flags(self):
+        """Returns Arg object excluding non - flagged arguments."""
+
+        fake_args = Args()
+        fake_args.__dict__.update(self.__dict__)
+
+        arg_list = []
+
+        for arg in fake_args._args:
+            if arg.startswith('-'):
+                arg_list.append(arg)
+        fake_args._args = arg_list
+
+        return fake_args
+        
+    
+
