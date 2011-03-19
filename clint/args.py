@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
 
 import sys
+from clint.packages.ordereddict import OrderedDict
+from clint.misc import is_collection
+
 
 class Args(object):
-    """CLI Argument managment."""
-    
-    def __init__(self):
-        self._args = sys.argv[1:]
+    """CLI Argument management."""
+
+    def __init__(self, args=None):
+        if not args:
+            self._args = sys.argv[1:]
+        else:
+            self._args = args
 
 
     def __len__(self):
@@ -16,6 +22,7 @@ class Args(object):
     def __repr__(self):
         return '<args %s>' % (repr(self._args))
 
+    
     def get(self, x):
         try:
             return self._args[x]
@@ -30,9 +37,13 @@ class Args(object):
             return False
 
 
+    def find(self, x):
+        """Returns index of first location of x"""
+#       ValueError
+        pass
+        
     def remove(self, x):
         """Removes given arg (or list thereof) from Args object."""
-
         if is_collection(x):
             for item in x:
                 try:
@@ -45,24 +56,72 @@ class Args(object):
             except ValueError:
                 pass
 
+    def any_contain(self, x):
+        """Tests if given object is contained in any stored argument."""
+        if is_collection(x):
+            for arg in self.all:
+                for _arg in x:
+                    if _arg in arg:
+                        return True
+            return False
+        else:
+            for arg in self.all:
+                if x in arg:
+                    return True
+            return True
 
     def contains(self, x):
         """Tests if given object is in arguments list. 
            Accepts strings and lists of strings."""
         
         if is_collection(x):
-            for arg in self._args:
+            for arg in self.all:
                 if arg in x:
                     return True
-                else:
-                    return False
+            return False
         else:
-            if x in self._args:
-                return True
-            else:
-                return False
+            return (x in self.all)
 
 
+
+    def find(self, x):
+        """Returns first found index of given value (or list of values)"""
+        
+        def _find( x):
+            try:
+                return self.all.index(str(x))
+            except ValueError:
+                return None
+
+        if is_collection(x):
+            for item in x:
+                found = _find(item)
+                if found:
+                    return found
+            return None
+        else:
+            return _find(x)
+
+    def find_with(self, x):
+        """Returns first found index containing value (or list of values)"""
+
+        def _find(x):
+            try:
+                for arg in self.all:
+                    if x in arg:
+                        return self.all.index(arg)
+            except ValueError:
+                return None
+
+        if is_collection(x):
+            for item in x:
+                found = _find(item)
+                if found:
+                    return found
+            return None
+        else:
+            return _find(x)
+    
     def contains_at(self, x, index):
         """Tests if given [list of] string is at given index."""
 
@@ -106,15 +165,30 @@ class Args(object):
         except IndexError:
             return None
 
+    @property
+    def grouped(self):
+        """Extracts --flag groups from argument list.
+           Returns {format: [paths], ...}
+        """
 
-    def everything_after(self, x):
-        """Returns all arguments after given index."""
-        try:
-            return self._args[x + 1:]
-        except IndexError:
-            return None
+        collection = OrderedDict(_=list())
 
+        _current_group = None
 
+        for arg in self.all:
+            if arg.startswith('--'):
+                group = arg.replace('--', '')
+                _current_group = group
+                collection[group] = []
+            elif not arg.startswith('-'):
+                if _current_group:
+                    collection[_current_group].append(arg)
+                else:
+                    collection['_'].append(arg)
+
+        return collection
+
+    @property
     def last(self):
         """Returns last argument."""
         
@@ -123,7 +197,8 @@ class Args(object):
         except IndexError:
             return None
 
-
+    
+    @property
     def all(self):
         """Returns all arguments."""
         
