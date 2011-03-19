@@ -12,7 +12,7 @@ from contextlib import contextmanager
 STDOUT = sys.stdout.write
 STDERR = sys.stderr.write
 
-class Puts(object):
+class Writer(object):
     """All-knowing puts"""
 
     shared = dict(indent_level=0, indent_strings=[])
@@ -43,29 +43,22 @@ class Puts(object):
             ''.join(self.shared['indent_strings']),
             str(s),
             '\n' if newline else ''
-            ))
+        ))
         stream(_str)
-
-
-def _out(stream, s, newline):
-    
-    terminator = '\n' if newline else ''
-    
-    stream('%s%s' % (s, terminator))
     
 
 def puts(s, newline=True):
     """Prints given string to stdout."""
-    Puts()(s, stream=STDOUT)
+    Writer()(s, stream=STDOUT)
 
 
 def puts_err(s, newline=True):
     """Prints given string to stderr."""
-    Puts()(s, stream=STDERR)
+    Writer()(s, stream=STDERR)
 
 
 def indent(indent=4, quote=' '):
-    return Puts(indent=indent, quote=quote)
+    return Writer(indent=indent, quote=quote)
 
 
 @contextmanager
