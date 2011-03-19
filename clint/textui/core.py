@@ -17,7 +17,7 @@ STDERR = sys.stderr.write
 
 
 class Writer(object):
-    """All-knowing puts"""
+    """WriterUtilized by context managers."""
 
     shared = dict(indent_level=0, indent_strings=[])
     
@@ -25,17 +25,20 @@ class Writer(object):
         self.indent = indent
         self.indent_char = indent_char
         self.indent_quote = quote
-        self.indent_string = ''.join((
-            str(quote),
-            (self.indent_char * (indent - len(self.indent_quote))),
-        ))
+        if self.indent > 0:
+            self.indent_string = ''.join((
+                str(quote),
+                (self.indent_char * (indent - len(self.indent_quote)))
+            ))
+        else:
+            self.indent_string = ''.join((
+                ('\x08' * (-1 * (indent - len(self.indent_quote)))),
+                str(quote))
+            )
 
-        # self.shared['indent_level'] += indent
         if len(self.indent_string):
             self.shared['indent_strings'].append(self.indent_string)
-        
-    
-        
+
     def __enter__(self):
         return self
         
@@ -52,16 +55,17 @@ class Writer(object):
     
 
 def puts(s, newline=True):
-    """Prints given string to stdout."""
+    """Prints given string to stdout via Writer interface."""
     Writer()(s, stream=STDOUT)
 
 
 def puts_err(s, newline=True):
-    """Prints given string to stderr."""
+    """Prints given string to stderr via Writer interface."""
     Writer()(s, stream=STDERR)
 
 
-def indent(indent=4, quote=' '):
+def indent(indent=4, quote=''):
+    """Indentation context manager"""
     return Writer(indent=indent, quote=quote)
 
 
