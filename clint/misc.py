@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import sys
+
 
 class Borg(object):
     """All instances of Borg have the same value."""
@@ -29,12 +31,10 @@ def progressbar(it, prefix='', size=32, hide=False):
 def is_collection(obj):
     """Tests if an object is a collection"""
 
-    val = hasattr(obj, '__getitem__')
-
     if isinstance(obj, basestring):
         return False
 
-    return val
+    return hasattr(obj, '__getitem__')
     
 def fixedwidth(string, width=15):
     """Adds column to output steam."""
