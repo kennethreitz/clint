@@ -129,7 +129,7 @@ class Args(object):
         
         return self._args
     
-    @propery    
+    @property    
     def no_flags(self):
         """Returns Arg object excluding flagged arguments."""
 
@@ -161,5 +161,10 @@ class Args(object):
 
         return fake_args
         
-    
+# TODO: glob expansion
+# TODO: support bash expansion
+
+
+# args.path_expand(list)
+# args.
 
