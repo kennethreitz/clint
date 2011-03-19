@@ -2,7 +2,7 @@
 
 import sys
 from clint.packages.ordereddict import OrderedDict
-from clint.misc import is_collection
+from clint.utils import is_collection
 
 
 class Args(object):
@@ -22,69 +22,62 @@ class Args(object):
     def __repr__(self):
         return '<args %s>' % (repr(self._args))
 
-    
+
+    def __getitem__(self, i):
+        try:
+            return self.all[i]
+        except IndexError:
+            return None
+
+    def __contains__(self, x):
+        return bool(self.first(x))
+
     def get(self, x):
         try:
-            return self._args[x]
+            return self.all[x]
         except IndexError:
-            return False
+            return None
 
 
-    def get_after(self, x):
-        try:
-            return self._args[x:]
-        except (IndexError, TypeError):
-            return False
+    def get_with(self, x):
+        return self[self.first_with(x)]
 
 
-    def find(self, x):
-        """Returns index of first location of x"""
-#       ValueError
-        pass
-        
     def remove(self, x):
         """Removes given arg (or list thereof) from Args object."""
+
+        def _remove(x):
+            found = self.find(x)
+            if found:
+                self._args.pop(found)
+
         if is_collection(x):
             for item in x:
-                try:
-                    self._args.remove(item)
-                except ValueError:
-                    pass
+                _remove(x)
         else:
-            try:
-                self._args.remove(x)
-            except ValueError:
-                pass
+            _remove(x)
+
+
+    def pop(self, x):
+        try:
+            return self._args.pop(x)
+        except IndexError:
+            return None
+
 
     def any_contain(self, x):
         """Tests if given object is contained in any stored argument."""
-        if is_collection(x):
-            for arg in self.all:
-                for _arg in x:
-                    if _arg in arg:
-                        return True
-            return False
-        else:
-            for arg in self.all:
-                if x in arg:
-                    return True
-            return True
+        return bool(self.first_with(x))
+
 
     def contains(self, x):
         """Tests if given object is in arguments list. 
            Accepts strings and lists of strings."""
         
-        if is_collection(x):
-            for arg in self.all:
-                if arg in x:
-                    return True
-            return False
-        else:
-            return (x in self.all)
+        return self.__contains__(x)
 
 
-
-    def find(self, x):
+    def first(self, x):
         """Returns first found index of given value (or list of values)"""
         
         def _find( x):
@@ -102,7 +95,7 @@ class Args(object):
         else:
             return _find(x)
 
-    def find_with(self, x):
+    def first_with(self, x):
         """Returns first found index containing value (or list of values)"""
 
         def _find(x):
@@ -121,7 +114,28 @@ class Args(object):
             return None
         else:
             return _find(x)
-    
+
+
+    def first_without(self, x):
+        """Returns first found index not containing value (or list of values)"""
+
+        def _find(x):
+            try:
+                for arg in self.all:
+                    if x not in arg:
+                        return self.all.index(arg)
+            except ValueError:
+                return None
+
+        if is_collection(x):
+            for item in x:
+                found = _find(item)
+                if found:
+                    return found
+            return None
+        else:
+            return _find(x)
+
     def contains_at(self, x, index):
         """Tests if given [list of] string is at given index."""
 
@@ -176,11 +190,10 @@ class Args(object):
         _current_group = None
 
         for arg in self.all:
-            if arg.startswith('--'):
-                group = arg.replace('--', '')
-                _current_group = group
-                collection[group] = []
-            elif not arg.startswith('-'):
+            if arg.startswith('-'):
+                _current_group = arg
+                collection[arg] = []
+            else:
                 if _current_group:
                     collection[_current_group].append(arg)
                 else:
@@ -193,7 +206,7 @@ class Args(object):
         """Returns last argument."""
         
         try:
-            return self._args[-1]
+            return self.all[-1]
         except IndexError:
             return None
 
@@ -203,38 +216,52 @@ class Args(object):
         """Returns all arguments."""
         
         return self._args
-    
+
+
+    def all_with(self, x):
+
+        _args = []
+        
+        for arg in self.all:
+            if is_collection(x):
+                for _x in x:
+                    if _x in arg:
+                        _args.append(arg)
+                        break
+            else:
+                if x in arg:
+                    _args.append(arg)
+
+        return Args(_args)
+
+
+    def all_without(self, x):
+
+        _args = []
+
+        for arg in self.all:
+            if is_collection(x):
+                for _x in x:
+                    if _x not in arg:
+                        _args.append(arg)
+                        break
+            else:
+                if x not in arg:
+                    _args.append(arg)
+
+        return Args(_args)
+
     @property    
     def no_flags(self):
         """Returns Arg object excluding flagged arguments."""
 
-        fake_args = Args()
-        fake_args.__dict__.update(self.__dict__)
-
-        arg_list = []
-
-        for arg in fake_args._args:
-            if not arg.startswith('-'):
-                arg_list.append(arg)
-        fake_args._args = arg_list
-
-        return fake_args
+        return self.all_without('-')
 
     @property
     def only_flags(self):
         """Returns Arg object excluding non - flagged arguments."""
 
-        fake_args = Args()
-        fake_args.__dict__.update(self.__dict__)
-
-        arg_list = []
-
-        for arg in fake_args._args:
-            if arg.startswith('-'):
-                arg_list.append(arg)
-        fake_args._args = arg_list
-
-        return fake_args
+        return self.all_with(['-', 'fuck'])
         
 # TODO: glob expansion
 # TODO: support bash expansion
