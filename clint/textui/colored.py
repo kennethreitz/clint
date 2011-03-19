@@ -6,6 +6,10 @@ Simple colorama wrapper
 
 colorama.init(autoreset=True)
 
+__all__ = (
+    'black', 'red', 'green', 'yellow', 'blue', 
+    'black', 'megenta', 'cyan', 'white'
+)
 
 class ColoredString(object):
     def __init__(self, color, s):
@@ -35,8 +39,6 @@ class ColoredString(object):
         
     def __mul__(self, other):
         return (self.color_str * other)
-
-
 
 
 
