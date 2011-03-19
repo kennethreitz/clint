@@ -2,6 +2,8 @@
 
 import sys
 
+__all__ = ('piped_in', )
+
 def piped_in():
     """Returns piped input via stdin, else False."""
     with sys.stdin as stdin:

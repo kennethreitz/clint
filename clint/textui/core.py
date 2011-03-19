@@ -9,8 +9,12 @@ import sys
 from contextlib import contextmanager
 
 
+__all__ = ('puts', 'puts_err', 'indent', 'maxwidth')
+
+
 STDOUT = sys.stdout.write
 STDERR = sys.stderr.write
+
 
 class Writer(object):
     """All-knowing puts"""
