@@ -39,7 +39,7 @@ class Puts(object):
         self.shared['indent_str'] = \
             self.shared['indent_str'].replace(self.indent_str, '')
         
-    def __call__(self, s, newline=True):
+    def __call__(self, s, newline=True, stream=STDOUT):
         _str = ''.join((
             self.shared['indent_str'],
             str(s),
@@ -58,12 +58,12 @@ def _out(stream, s, newline):
 
 def puts(s, newline=True):
     """Prints given string to stdout."""
-    Puts()(s)
+    Puts()(s, stream=STDOUT)
 
 
 def puts_err(s, newline=True):
     """Prints given string to stderr."""
-    _out(STDERR, s, newline)
+    Puts()(s, stream=STDERR)
 
 
 def indent(indent=4, quote=' '):
