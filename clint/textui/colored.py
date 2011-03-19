@@ -6,26 +6,60 @@ Simple colorama wrapper
 
 colorama.init(autoreset=True)
 
+
+class ColoredString(object):
+    def __init__(self, color, s):
+        super(ColoredString, self).__init__()
+        self.s = s
+        self.color = color
+        self.color_str = '%s%s%s' % (
+            getattr(colorama.Fore, self.color), self.s, colorama.Fore.RESET)
+        
+    def __len__(self):
+        return len(self.s)
+        
+    def __repr__(self):
+        return "<%s-string: '%s'>" % (self.color, self.s)
+        
+    def __str__(self):
+        return self.__unicode__().encode('utf8')
+        
+    def __unicode__(self):
+        return self.color_str
+        
+    def __add__(self, other):
+        return str(self.color_str) + str(other)
+        
+    def __radd__(self, other):
+        return str(other) + str(self.color_str)
+        
+    def __mul__(self, other):
+        return (self.color_str * other)
+
+
+
+
+
 def black(string):
-	return '%s%s%s' % (colorama.Fore.BLACK, string, colorama.Fore.RESET)
+    return ColoredString('BLACK', string)
 
 def red(string):
-	return '%s%s%s' % (colorama.Fore.RED, string, colorama.Fore.RESET)
+	return ColoredString('RED', string)
 
 def green(string):
-	return '%s%s%s' % (colorama.Fore.GREEN, string, colorama.Fore.RESET)
+	return ColoredString('GREEN', string)
 
 def yellow(string):
-	return '%s%s%s' % (colorama.Fore.YELLOW, string, colorama.Fore.RESET)
+	return ColoredString('YELLOW', string)
 
 def blue(string):
-	return '%s%s%s' % (colorama.Fore.BLUE, string, colorama.Fore.RESET)
+	return ColoredString('BLUE', string)
 
 def magenta(string):
-	return '%s%s%s' % (colorama.Fore.MAGENTA, string, colorama.Fore.RESET)
+	return ColoredString('MAGENTA', string)
 
 def cyan(string):
-	return '%s%s%s' % (colorama.Fore.CYAN, string, colorama.Fore.RESET)
+	return ColoredString('CYAN', string)
 
 def white(string):
-	return '%s%s%s' % (colorama.Fore.WHITE, string, colorama.Fore.RESET)
+	return ColoredString('STRING', string)
