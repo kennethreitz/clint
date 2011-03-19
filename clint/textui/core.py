@@ -13,12 +13,11 @@ STDOUT = sys.stdout.write
 STDERR = sys.stderr.write
 
 class Puts(object):
-    class Borg(object):
-        """All instances of Borg have the same value."""
-            
+    """All-knowing puts"""
+
     shared = dict(indent_level=0, indent_str='')
     
-    def __init__(self, indent=0, quote=' ', indent_char=' '):
+    def __init__(self, indent=0, quote='', indent_char=' '):
         # self.shared = Borg()
         self.indent = indent
         self.indent_char = indent_char
@@ -58,7 +57,7 @@ def _out(stream, s, newline):
 
 def puts(s, newline=True):
     """Prints given string to stdout."""
-    _out(STDOUT, s, newline)
+    Puts()(s)
 
 
 def puts_err(s, newline=True):
