@@ -22,6 +22,7 @@ class Puts(object):
             return obj
         def __init__(self):
             self.indent_level = 0
+            self.indent_str = ''
             
     shared = Borg()
     
@@ -31,6 +32,11 @@ class Puts(object):
         self.indent_char = indent_char
         self.indent_quote = quote
         self.shared.indent_level += indent
+        self.shared.indent_str += ''.join((
+            self.indent_quote,
+            (self.indent_char * (self.indent - len(self.indent_quote))),
+            ))
+        
         
     def __enter__(self):
         return self
@@ -38,13 +44,12 @@ class Puts(object):
     def __exit__(self, type, value, traceback):
         self.shared.indent_level += (-1 * self.indent)
         self.indent_quote = ''
+        self.shared.indent_str = self.shared.indent_str[:(-1 * self.indent)]
         self.indent = 0
         
     def __call__(self, x, newline=True):
         _str = ''.join((
-            (self.indent_char * (self.shared.indent_level - self.indent)),
-            self.indent_quote,
-            (self.indent_char * (self.indent - len(self.indent_quote))),
+            self.shared.indent_str,
             x,
             '\n' if newline else ''
             ))
