@@ -22,11 +22,12 @@ class Puts(object):
         self.indent = indent
         self.indent_char = indent_char
         self.indent_quote = quote
-        self.shared['indent_level'] += indent
-        self.shared['indent_str'] += ''.join((
-            self.indent_quote,
+        self.indent_str = ''.join((
+            str(self.indent_quote),
             (self.indent_char * (self.indent - len(self.indent_quote))),
         ))
+        self.shared['indent_level'] += indent
+        self.shared['indent_str'] += self.indent_str
         
         
     def __enter__(self):
@@ -35,13 +36,13 @@ class Puts(object):
     def __exit__(self, type, value, traceback):
         self.shared['indent_level'] += (-1 * self.indent)
         self.indent_quote = ''
-        self.shared['indent_str'] = self.shared['indent_str'][:(-1 * self.indent)]
-        self.indent = 0
+        self.shared['indent_str'] = \
+            self.shared['indent_str'].replace(self.indent_str, '')
         
-    def __call__(self, x, newline=True):
+    def __call__(self, s, newline=True):
         _str = ''.join((
             self.shared['indent_str'],
-            x,
+            str(s),
             '\n' if newline else ''
             ))
         STDOUT(_str)
