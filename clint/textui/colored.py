@@ -4,54 +4,28 @@ from clint.packages import colorama
 Simple colorama wrapper
 """
 
-class ColoredString(object):
-    def __init__(self, color, s):
-        super(ColoredString, self).__init__()
-        self.s = s
-        self.color = color
-        self.color_str = '%s%s%s' % (
-            getattr(colorama.Fore, self.color), self.s, colorama.Fore.RESET)
-        
-    def __len__(self):
-        return len(self.s)
-        
-    def __repr__(self):
-        return "<%s-string: '%s'>" % (self.color, self.s)
-        
-    def __str__(self):
-        return self.__unicode__().encode('utf8')
-        
-    def __unicode__(self):
-        return self.color_str
-        
-    def __add__(self, other):
-        return self.color_str + str(other)
-        
-    def __radd__(self, other):
-        return str(other) + self.color_str
-
 colorama.init(autoreset=True)
 
 def black(string):
-    return ColoredString('BLACK', string)
+	return '%s%s%s' % (colorama.Fore.BLACK, string, colorama.Fore.RESET)
 
 def red(string):
-	return ColoredString('RED', string)
+	return '%s%s%s' % (colorama.Fore.RED, string, colorama.Fore.RESET)
 
 def green(string):
-	return ColoredString('GREEN', string)
+	return '%s%s%s' % (colorama.Fore.GREEN, string, colorama.Fore.RESET)
 
 def yellow(string):
-	return ColoredString('YELLOW', string)
+	return '%s%s%s' % (colorama.Fore.YELLOW, string, colorama.Fore.RESET)
 
 def blue(string):
-	return ColoredString('BLUE', string)
+	return '%s%s%s' % (colorama.Fore.BLUE, string, colorama.Fore.RESET)
 
 def magenta(string):
-	return ColoredString('MAGENTA', string)
+	return '%s%s%s' % (colorama.Fore.MAGENTA, string, colorama.Fore.RESET)
 
 def cyan(string):
-	return ColoredString('CYAN', string)
+	return '%s%s%s' % (colorama.Fore.CYAN, string, colorama.Fore.RESET)
 
 def white(string):
-	return ColoredString('STRING', string)
+	return '%s%s%s' % (colorama.Fore.WHITE, string, colorama.Fore.RESET)
