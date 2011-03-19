@@ -15,41 +15,33 @@ STDERR = sys.stderr.write
 class Puts(object):
     class Borg(object):
         """All instances of Borg have the same value."""
-        _shared_state = {}
-        def __new__(cls, *a, **k):
-            obj = object.__new__(cls, *a, **k)
-            obj.__dict__ = cls._shared_state
-            return obj
-        def __init__(self):
-            self.indent_level = 0
-            self.indent_str = ''
             
-    shared = Borg()
+    shared = dict(indent_level=0, indent_str='')
     
     def __init__(self, indent=0, quote=' ', indent_char=' '):
         # self.shared = Borg()
         self.indent = indent
         self.indent_char = indent_char
         self.indent_quote = quote
-        self.shared.indent_level += indent
-        self.shared.indent_str += ''.join((
+        self.shared['indent_level'] += indent
+        self.shared['indent_str'] += ''.join((
             self.indent_quote,
             (self.indent_char * (self.indent - len(self.indent_quote))),
-            ))
+        ))
         
         
     def __enter__(self):
         return self
         
     def __exit__(self, type, value, traceback):
-        self.shared.indent_level += (-1 * self.indent)
+        self.shared['indent_level'] += (-1 * self.indent)
         self.indent_quote = ''
-        self.shared.indent_str = self.shared.indent_str[:(-1 * self.indent)]
+        self.shared['indent_str'] = self.shared['indent_str'][:(-1 * self.indent)]
         self.indent = 0
         
     def __call__(self, x, newline=True):
         _str = ''.join((
-            self.shared.indent_str,
+            self.shared['indent_str'],
             x,
             '\n' if newline else ''
             ))
