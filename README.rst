@@ -41,6 +41,7 @@ I want to quote my console text (like email). ::
     >>> with indent(4, quote=' >'):
     >>>     puts('quoted text')
     >>>     puts('pretty cool, eh?')
+    
     not indented text
      >  indented text
      >  pretty cool, eh?
@@ -52,17 +53,19 @@ I want to color my console text. ::
     >>> puts(colored.red('red text'))
     red text
 
-You'll have to trust me on that one. It's red in Windows, OSX, and Linux alike.
+    # It's red in Windows, OSX, and Linux alike.
 
 I want to get data piped in from another process. ::
 
     >>> clint.piped_in()
+    
     # if no data was piped in, piped_in returns None
 
 
 I want to get the first commandline argument passed in. ::
 
     >>> clint.args.get(0)
+
     # if no argument was passed, get returns None
 
 
@@ -72,9 +75,10 @@ I want to store a configuration file. ::
 
     >>> resources.init('Company', 'AppName')
     >>> resources.user.write('config.ini', file_contents)
-    # OSX: file is '/Users/appuser/Library/Application Support/AppName'
-    # Windows: file is 'C:\\Users\\appuser\\AppData\\Local\\Company\\AppName'
-    # Linux: file is '/home/appuser/.config/appname'
+
+    # OSX: '/Users/appuser/Library/Application Support/AppName/config.ini'
+    # Windows: 'C:\\Users\\appuser\\AppData\\Local\\Company\\AppName\\config.ini'
+    # Linux: '/home/appuser/.config/appname/config.ini'
 
 
 Installation
@@ -95,7 +99,8 @@ But, you really shouldn't do that.
 License:
 --------
 
-::
+ISC License. ::
+
     Copyright (c) 2011, Kenneth Reitz <me@kennethreitz.com>
 
     Permission to use, copy, modify, and/or distribute this software for any
