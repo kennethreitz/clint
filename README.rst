@@ -1,7 +1,7 @@
 Clint: Python Command-line Application Helpers
 ==============================================
 
-[Image of Clint Eastwood]
+.. image:: https://github.com/kennethreitz/clint/raw/master/misc/clint.jpeg
 
 Features:
 ---------
