@@ -11,7 +11,7 @@ from clint.textui import puts, colored, indent
 
 with indent(4, quote='>>>'):
     puts(colored.red('Aruments passed in: ') + str(args.all))
-    puts(colored.red('Flags detected: ') + str(args.all_without('py')))
+    puts(colored.red('Flags detected: ') + str(args.only_flags))
     puts(colored.red('Files detected: ') + str(args.files))
     puts(colored.red('Grouped Arguments: ') + str(dict(args.grouped)))
     
