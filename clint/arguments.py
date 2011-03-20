@@ -1,8 +1,27 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
+from glob import glob
+
 from clint.packages.ordereddict import OrderedDict
 from clint.utils import is_collection
+
+
+def _expand_path(path):
+	"""Expands directories and globs in given path."""
+
+	paths = []
+
+	if os.path.isdir(path):
+
+		for (dir, dirs, files) in os.walk(path):
+			for file in files:
+				paths.append(os.path.join(dir, file))
+	else:
+		paths.extend(glob(path))
+
+	return paths
 
 
 class Args(object):
@@ -278,6 +297,28 @@ class Args(object):
         """Returns Arg object including only flagged arguments."""
 
         return self.all_with('-')
-        
-# TODO: glob expansion
-# TODO: support bash expansion
+
+
+    @property
+    def files(self, absolute=False):
+        """Returns an expanded list of all valid paths that were passed in."""
+
+        _paths = []
+
+        for arg in self.all:
+            for path in _expand_path(arg):
+                if os.path.exists(path):
+                    if absolute:
+                        _paths.append(os.path.abspath(path))
+                    else:
+                        _paths.append(path)
+
+        return _paths
+
+
+    @property
+    def copy(self):
+        """Returns a copy of Args object for temporary manipulation."""
+
+        return Args(self.all)
+
