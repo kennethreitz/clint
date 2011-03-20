@@ -42,7 +42,7 @@ class AppDir(object):
 
     def __getattribute__(self, name):
 
-        if not name in ('_exists', 'path', 'create', '_raise_if_none'):
+        if not name in ('_exists', 'path', '_create', '_raise_if_none'):
             if not self._exists:
                 self._create()
         return object.__getattribute__(self, name)
