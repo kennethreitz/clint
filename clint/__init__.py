@@ -1,6 +1,6 @@
-from . import args as arguments
+from . import arguments
 from . import textui
-from . import pipes
-from . import misc
+from . import utils
+from .pipes import piped_in
 
-args = args.Args()
+args = arguments.Args()
