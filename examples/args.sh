@@ -10,3 +10,6 @@ python args.py *.py
 
 echo 'A few non-expanded file arguments:'
 python args.py '*.py'
+
+echo 'A few mixed files/flags/arguments:'
+python args.py '*.py' --test test face book -s ~/.ssh
