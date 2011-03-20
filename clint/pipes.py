@@ -5,7 +5,7 @@ import sys
 __all__ = ('piped_in', )
 
 def piped_in():
-    """Returns piped input via stdin, else False."""
+    """Returns piped input via stdin, else None."""
     with sys.stdin as stdin:
         # TTY is only way to detect if stdin contains data
         if not stdin.isatty():
