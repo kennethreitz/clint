@@ -19,8 +19,8 @@ colorama.init(autoreset=True)
 
 
 __all__ = (
-    'black', 'red', 'green', 'yellow', 'blue', 
-    'black', 'megenta', 'cyan', 'white'
+    'red', 'green', 'yellow', 'blue',
+    'black', 'magenta', 'cyan', 'white'
 )
 
 
@@ -78,4 +78,4 @@ def cyan(string):
     return ColoredString('CYAN', string)
 
 def white(string):
-    return ColoredString('STRING', string)
+    return ColoredString('WHITE', string)
