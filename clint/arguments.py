@@ -280,7 +280,7 @@ class Args(object):
                 if x in arg:
                     _args.append(arg)
 
-        return Args(_args)
+        return Args(_args, no_argv=True)
 
 
     def all_without(self, x):
@@ -298,7 +298,7 @@ class Args(object):
                 if x not in arg:
                     _args.append(arg)
 
-        return Args(_args)
+        return Args(_args, no_argv=True)
 
 
     @property    
