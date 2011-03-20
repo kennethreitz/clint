@@ -8,9 +8,12 @@ from clint.utils import is_collection
 class Args(object):
     """CLI Argument management."""
 
-    def __init__(self, args=None):
+    def __init__(self, args=None, no_argv=False):
         if not args:
-            self._args = sys.argv[1:]
+            if not no_argv:
+                self._args = sys.argv[1:]
+            else:
+                self._args = []
         else:
             self._args = args
 
