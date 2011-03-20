@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
+from sys import argv
 from glob import glob
 
 from clint.packages.ordereddict import OrderedDict
@@ -30,7 +30,7 @@ class Args(object):
     def __init__(self, args=None, no_argv=False):
         if not args:
             if not no_argv:
-                self._args = sys.argv[1:]
+                self._args = argv[1:]
             else:
                 self._args = []
         else:
