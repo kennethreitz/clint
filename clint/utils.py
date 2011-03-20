@@ -33,3 +33,21 @@ def mkdir_p(path):
             pass
         else:
             raise
+
+def tsplit(string, delimiters):
+    """Behaves str.split but supports tuples of delimiters."""
+    
+    delimiters = tuple(delimiters)
+    
+    stack = list()
+    stack.append(string)
+    
+    for delimiter in delimiters:
+        for i, substring in enumerate(stack):
+            substack = substring.split(delimiter)
+            stack.pop(i)
+            for j, _substring in enumerate(substack):
+                if len(_substring):
+                    stack.insert(i+j, _substring)
+            
+    return stack
