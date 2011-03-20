@@ -20,7 +20,7 @@ from .utils import is_collection
 
 
 
-__all__ = (Args, )
+__all__ = ('Args', )
 
 
 
