@@ -14,6 +14,7 @@ from __future__ import absolute_import
 import sys
 
 from .progress import progressbar
+from ..utils import tsplit
 
 
 __all__ = ('puts', 'puts_err', 'indent', 'progressbar')
@@ -59,9 +60,10 @@ class Writer(object):
     def __call__(self, s, newline=True, stream=STDOUT):
         
         if newline:
-            s = s.split('\n')
+            s = tsplit(s, ('\n', '\r', '\r\n'))
             indent = ''.join(self.shared['indent_strings'])
-            s = (indent + '\n').join(s)
+            
+            s = ('\n' + indent).join(s)
         
         _str = ''.join((
             ''.join(self.shared['indent_strings']),
