@@ -29,10 +29,13 @@ class Args(object):
         except IndexError:
             return None
 
+
     def __contains__(self, x):
         return bool(self.first(x))
 
+
     def get(self, x):
+        """Returns argument at given index, else none."""
         try:
             return self.all[x]
         except IndexError:
@@ -40,7 +43,8 @@ class Args(object):
 
 
     def get_with(self, x):
-        return self[self.first_with(x)]
+        """Returns first argument that contains given string."""
+        return self.all[self.first_with(x)]
 
 
     def remove(self, x):
@@ -59,6 +63,7 @@ class Args(object):
 
 
     def pop(self, x):
+        """Removes and Returns value at given index, else none."""
         try:
             return self._args.pop(x)
         except IndexError:
@@ -66,7 +71,8 @@ class Args(object):
 
 
     def any_contain(self, x):
-        """Tests if given object is contained in any stored argument."""
+        """Tests if given string is contained in any stored argument."""
+        
         return bool(self.first_with(x))
 
 
@@ -171,11 +177,11 @@ class Args(object):
         
         try:
             try:
-                i = self._args.index(x)
+                i = self.all.index(x)
             except ValueError:
                 return None
                 
-            return self._args[i + 1]
+            return self.all[i + 1]
             
         except IndexError:
             return None
@@ -202,6 +208,7 @@ class Args(object):
 
         return collection
 
+    
     @property
     def last(self):
         """Returns last argument."""
@@ -220,6 +227,7 @@ class Args(object):
 
 
     def all_with(self, x):
+        """Returns all arguments containing given string (or list thereof)"""
 
         _args = []
         
@@ -237,6 +245,7 @@ class Args(object):
 
 
     def all_without(self, x):
+        """Returns all arguments not containing given string (or list thereof)"""
 
         _args = []
 
@@ -252,22 +261,19 @@ class Args(object):
 
         return Args(_args)
 
+
     @property    
     def no_flags(self):
         """Returns Arg object excluding flagged arguments."""
 
         return self.all_without('-')
 
+
     @property
     def only_flags(self):
-        """Returns Arg object excluding non - flagged arguments."""
+        """Returns Arg object including only flagged arguments."""
 
-        return self.all_with(['-', 'fuck'])
+        return self.all_with('-')
         
 # TODO: glob expansion
 # TODO: support bash expansion
-
-
-# args.path_expand(list)
-# args.
-
