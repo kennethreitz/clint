@@ -95,6 +95,7 @@ class Args(object):
         else:
             return _find(x)
 
+
     def first_with(self, x):
         """Returns first found index containing value (or list of values)"""
 
@@ -142,12 +143,12 @@ class Args(object):
         try:
             if is_collection(x):
                 for _x in x:
-                    if (_x in self._args[index]) or (_x == self._args[index]):
+                    if (_x in self.all[index]) or (_x == self.all[index]):
                         return True
                     else:
                         return False
             else:
-                return (x in self._args[index])
+                return (x in self.all[index])
         
         except IndexError:
             return False
@@ -159,7 +160,7 @@ class Args(object):
         """
         
         try:
-            self._args[x]
+            self.all[x]
             return True
         except IndexError:
             return False
