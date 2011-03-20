@@ -145,7 +145,7 @@ cache = AppDir()
 log = AppDir()
 
 
-def init(name, vendor):
+def init(vendor, name):
 
     global user, site, cache, log
     
