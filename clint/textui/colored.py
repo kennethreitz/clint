@@ -1,17 +1,31 @@
-from clint.packages import colorama
+# -*- coding: utf-8 -*-
 
 """
-Simple colorama wrapper
+clint.colored
+~~~~~~~~~~~~~
+
+This module provides a simple and elegant wrapper for colorama.
+
 """
+
+
+from __future__ import absolute_import
+
+from .packages import colorama
+
+
 
 colorama.init(autoreset=True)
+
 
 __all__ = (
     'black', 'red', 'green', 'yellow', 'blue', 
     'black', 'megenta', 'cyan', 'white'
 )
 
+
 class ColoredString(object):
+    """Enhanced string for __len__ operations on Colored output."""
     def __init__(self, color, s):
         super(ColoredString, self).__init__()
         self.s = s
@@ -46,22 +60,22 @@ def black(string):
     return ColoredString('BLACK', string)
 
 def red(string):
-	return ColoredString('RED', string)
+    return ColoredString('RED', string)
 
 def green(string):
-	return ColoredString('GREEN', string)
+    return ColoredString('GREEN', string)
 
 def yellow(string):
-	return ColoredString('YELLOW', string)
+    return ColoredString('YELLOW', string)
 
 def blue(string):
-	return ColoredString('BLUE', string)
+    return ColoredString('BLUE', string)
 
 def magenta(string):
-	return ColoredString('MAGENTA', string)
+    return ColoredString('MAGENTA', string)
 
 def cyan(string):
-	return ColoredString('CYAN', string)
+    return ColoredString('CYAN', string)
 
 def white(string):
-	return ColoredString('STRING', string)
+    return ColoredString('STRING', string)

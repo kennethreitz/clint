@@ -1,15 +1,27 @@
 # -*- coding: utf-8 -*-
 
+"""
+clint.arguments
+~~~~~~~~~~~~~~~
+
+This module provides the CLI argument interface.
+
+"""
+
+
+from __future__ import absolute_import
+
 import os
 from sys import argv
 from glob import glob
 
-try:
-    from collections import OrderedDict
-except ImportError:
-    from clint.packages.ordereddict import OrderedDict
+from .packages.ordereddict import OrderedDict
+from .utils import is_collection
 
-from clint.utils import is_collection
+
+
+__all__ = (Args, )
+
 
 
 def _expand_path(path):

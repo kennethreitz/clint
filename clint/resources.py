@@ -1,10 +1,22 @@
+# -*- coding: utf-8 -*-
+
+"""
+clint.resources
+~~~~~~~~~~~~~~~
+
+This module contains all the application resource features of clint.
+
+"""
+
+
+from __future__ import absolute_import
+
 import errno
-import os
-from os.path import join as path_join
+from os import remove, removedirs
+from os.path import isfile, join as path_join
 
-
-from clint.packages.appdirs import AppDirs, AppDirsError
-from clint.utils import mkdir_p, is_collection
+from .packages.appdirs import AppDirs, AppDirsError
+from .utils import mkdir_p, is_collection
 
 
 __all__ = (
@@ -98,10 +110,10 @@ class AppDir(object):
         fn = path_join(self.path, filename)
 
         try:
-            if os.path.isfile(fn):
-                os.remove(fn)
+            if isfile(fn):
+                remove(fn)
             else:
-                os.removedirs(fn)
+                removedirs(fn)
         except OSError, why:
             if why.errno == errno.ENOENT:
                 pass

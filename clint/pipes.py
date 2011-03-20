@@ -1,8 +1,21 @@
 # -*- coding: utf-8 -*-
 
+"""
+clint.pipes
+~~~~~~~~~~~
+
+This module contains the helper functions for dealing with unix pipes.
+
+"""
+
+from __future__ import absolute_import
+
 import sys
 
+
 __all__ = ('piped_in', )
+
+
 
 def piped_in():
     """Returns piped input via stdin, else None."""

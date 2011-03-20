@@ -4,11 +4,16 @@
 clint.textui.core
 ~~~~~~~~~~~~~~~~~
 
+Core TextUI functionality for Puts/Indent/Writer.
+
 """
+
+
+from __future__ import absolute_import
 
 import sys
 
-from progress import progressbar
+from .progress import progressbar
 
 
 __all__ = ('puts', 'puts_err', 'indent', 'progressbar')
@@ -22,7 +27,8 @@ class Writer(object):
     """WriterUtilized by context managers."""
 
     shared = dict(indent_level=0, indent_strings=[])
-    
+
+
     def __init__(self, indent=0, quote='', indent_char=' '):
         self.indent = indent
         self.indent_char = indent_char
@@ -41,12 +47,15 @@ class Writer(object):
         if len(self.indent_string):
             self.shared['indent_strings'].append(self.indent_string)
 
+
     def __enter__(self):
         return self
-        
+
+
     def __exit__(self, type, value, traceback):
         self.shared['indent_strings'].pop()
-        
+
+
     def __call__(self, s, newline=True, stream=STDOUT):
         _str = ''.join((
             ''.join(self.shared['indent_strings']),
@@ -67,5 +76,5 @@ def puts_err(s, newline=True):
 
 
 def indent(indent=4, quote=''):
-    """Indentation context manager"""
+    """Indentation context manager."""
     return Writer(indent=indent, quote=quote)

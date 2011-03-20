@@ -1,11 +1,22 @@
 # -*- coding: utf-8 -*-
 
+"""
+clint.utils
+~~~~~~~~~~~~
+
+Various Python helpers used within clint.
+
+"""
+
+from __future__ import absolute_import
+
 import sys
 import errno
 from os import makedirs
 
+
 def is_collection(obj):
-    """Tests if an object is a collection"""
+    """Tests if an object is a collection. Strings don't count."""
 
     if isinstance(obj, basestring):
         return False
@@ -13,16 +24,8 @@ def is_collection(obj):
     return hasattr(obj, '__getitem__')
 
 
-def fixedwidth(string, width=15):
-    """Adds column to output steam."""
-    if len(string) > width:
-        return string[:width]
-    else:
-        return string.ljust(width)
-
-
 def mkdir_p(path):
-    """mkdir -p"""
+    """Emulates `mkdir -p` behavior."""
     try:
         makedirs(path)
     except OSError as exc: # Python >2.5
