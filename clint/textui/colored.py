@@ -53,6 +53,9 @@ class ColoredString(object):
         
     def __mul__(self, other):
         return (self.color_str * other)
+        
+    def split(self, x=' '):
+        return self.color_str.split(x)
 
 
 
