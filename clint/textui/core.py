@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 
 """
-x
+clint.textui.core
+~~~~~~~~~~~~~~~~~
 
 """
 
 import sys
-from contextlib import contextmanager
+
+from progress import progressbar
 
 
-__all__ = ('puts', 'puts_err', 'indent', 'maxwidth')
+__all__ = ('puts', 'puts_err', 'indent', 'progressbar')
 
 
 STDOUT = sys.stdout.write
@@ -52,7 +54,7 @@ class Writer(object):
             '\n' if newline else ''
         ))
         stream(_str)
-    
+
 
 def puts(s, newline=True):
     """Prints given string to stdout via Writer interface."""
@@ -67,9 +69,3 @@ def puts_err(s, newline=True):
 def indent(indent=4, quote=''):
     """Indentation context manager"""
     return Writer(indent=indent, quote=quote)
-
-
-@contextmanager
-def maxwidth(x=None):
-    # if none, detect from applib
-    print x

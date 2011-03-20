@@ -27,7 +27,10 @@ setup(
     author_email='me@kennethreitz.com',
     url='https://github.com/kennethreitz/clint',
     packages= [
-        'clint', 'clint.packages', 'clint.packages.colorama'
+        'clint',
+        'clint.textui',
+
+        'clint.packages', 'clint.packages.colorama'
     ],
     install_requires=required,
     license='ISC',

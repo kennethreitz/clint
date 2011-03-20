@@ -1,7 +1,9 @@
-from . import arguments
-from . import textui
-from . import utils
-from .pipes import piped_in
+# -*- coding: utf-8 -*-
+
+import arguments
+import textui
+import utils
+from pipes import piped_in
 
 
 __title__ = 'clint'
