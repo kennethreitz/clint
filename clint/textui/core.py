@@ -57,6 +57,12 @@ class Writer(object):
 
 
     def __call__(self, s, newline=True, stream=STDOUT):
+        
+        if newline:
+            s = s.split('\n')
+            indent = ''.join(self.shared['indent_strings'])
+            s = (indent + '\n').join(s)
+        
         _str = ''.join((
             ''.join(self.shared['indent_strings']),
             str(s),
