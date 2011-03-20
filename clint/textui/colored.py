@@ -11,7 +11,7 @@ This module provides a simple and elegant wrapper for colorama.
 
 from __future__ import absolute_import
 
-from .packages import colorama
+from ..packages import colorama
 
 
 
