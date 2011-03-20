@@ -27,6 +27,8 @@ Example
 
 I want to indent my console text. ::
 
+    >>> from clint.textui import puts, indent
+
     >>> puts('not indented text')
     >>> with indent(4):
     >>>     puts('indented text')
@@ -44,6 +46,8 @@ I want to quote my console text (like email). ::
      >  pretty cool, eh?
 
 I want to color my console text. ::
+
+    >>> from clint.textui import colored
 
     >>> puts(colored.red('red text'))
     red text
