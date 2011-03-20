@@ -55,7 +55,7 @@ I want to color my console text. ::
 
     # It's red in Windows, OSX, and Linux alike.
 
-I want to get data piped in from another process. ::
+I want to get data piped to stdin. ::
 
     >>> clint.piped_in()
     
