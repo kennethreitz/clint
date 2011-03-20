@@ -3,14 +3,22 @@ Clint: Python Command-line Application Helpers
 
 [Image of Clint Eastwood]
 
-* Tree Structures
-* Columns / Colors
+Features:
 
-    powered by colorama
-    
-    colored.blue('Face')
-    colored.white('Book')
+- CLI Colors and Indents
+- Iterator-based Progress Bar
+- Implicit Argument Handling
+- Simple Support for Unix Pipes
+- Application Directory management
 
-* choice: y/N?
-* query: Installation Path [/usr/local/bin/]: 
-* &c
+
+**``clint.textui``**
+
+
+**``clint.resources``**
+
+
+**``clint.piped_in()``**
+
+
+**``clint.args``**
