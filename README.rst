@@ -10,6 +10,7 @@ commandline applications.
 **L** ine
 **IN** terface
 **T** ools
+. 
 
 Features:
 ---------
@@ -21,7 +22,41 @@ Features:
 - Application Directory management
 
 
+Example
+-------
+
+I want to indent my console text. ::
+
+    >>> puts('not indented text')
+    >>> with indent(4):
+    >>>     puts('indented text')
+    not indented text
+        indented text
+
+I want to quote my console text (like email). ::
+
+    >>> puts('not indented text')
+    >>> with indent(4, quote=' >'):
+    >>>     puts('quoted text')
+    >>>     puts('pretty cool, eh?')
+    not indented text
+     >  indented text
+     >  pretty cool, eh?
+
+I want to color my console text. ::
+
+    >>> puts(colored.red('red text'))
+    red text
+
+You'll have to trust me on that one. It's red in Windows, OSX, and Linux alike.
+
+
+API
+---
+
 ``clint.textui``
+
+
 
 
 ``clint.resources``
