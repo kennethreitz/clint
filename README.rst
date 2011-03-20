@@ -126,7 +126,6 @@ sure you add yourself to AUTHORS_.
 
 Roadmap
 -------
-- Indent ``\n`` injection
 - Unittests
 - Sphinx Documentation
 - Python 2.5, 3.1, 3.2 Support

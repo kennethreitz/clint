@@ -6,3 +6,13 @@ History
 
 * Initial Release!
 
+
+0.1.1 (2011-03-20)
+++++++++++++++++++
+
+* Bugfixes
+* Indent Newline Injection
+* resources: flags, not_flags, files, not_files
+* Lots of Examples
+
+
