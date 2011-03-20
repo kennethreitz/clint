@@ -54,23 +54,27 @@ I want to color my console text. ::
 
 You'll have to trust me on that one. It's red in Windows, OSX, and Linux alike.
 
+I want to get data piped in from another process. ::
 
-API
----
-
-``clint.textui``
-
+    >>> clint.piped_in()
+    # if no data was piped in, piped_in returns None
 
 
+I want to get the first commandline argument passed in. ::
 
-``clint.resources``
+    >>> clint.args.get(0)
+    # if no argument was passed, get returns None
 
 
-``clint.piped_in()``
+I want to store a configuration file. ::
 
+    >>> from clint import resources
 
-``clint.args``
-
+    >>> resources.init('Company', 'AppName')
+    >>> resources.user.write('config.ini', file_contents)
+    # OSX: file is '/Users/appuser/Library/Application Support/AppName'
+    # Windows: file is 'C:\\Users\\appuser\\AppData\\Local\\Company\\AppName'
+    # Linux: file is '/home/appuser/.config/appname'
 
 
 Installation
