@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+
 import sys
+import errno
+from os import makedirs
+
 
 
 def progressbar(it, prefix='', size=32, hide=False):
@@ -27,7 +31,8 @@ def is_collection(obj):
         return False
 
     return hasattr(obj, '__getitem__')
-    
+
+
 def fixedwidth(string, width=15):
     """Adds column to output steam."""
     if len(string) > width:
@@ -39,8 +44,9 @@ def fixedwidth(string, width=15):
 def mkdir_p(path):
     """mkdir -p"""
     try:
-        os.makedirs(path)
+        makedirs(path)
     except OSError as exc: # Python >2.5
         if exc.errno == errno.EEXIST:
             pass
-        else: raise
+        else:
+            raise
