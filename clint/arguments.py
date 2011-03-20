@@ -4,7 +4,11 @@ import os
 from sys import argv
 from glob import glob
 
-from clint.packages.ordereddict import OrderedDict
+try:
+    from collections import OrderedDict
+except ImportError:
+    from clint.packages.ordereddict import OrderedDict
+
 from clint.utils import is_collection
 
 
