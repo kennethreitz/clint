@@ -301,18 +301,18 @@ class Args(object):
         return Args(_args, no_argv=True)
 
 
-    @property    
-    def no_flags(self):
-        """Returns Arg object excluding flagged arguments."""
-
-        return self.all_without('-')
-
-
     @property
-    def only_flags(self):
+    def flags(self):
         """Returns Arg object including only flagged arguments."""
 
         return self.all_with('-')
+
+
+    @property    
+    def not_flags(self):
+        """Returns Arg object excluding flagged arguments."""
+
+        return self.all_without('-')
 
 
     @property
@@ -331,6 +331,19 @@ class Args(object):
 
         return _paths
 
+
+    @property
+    def not_files(self):
+        """Returns a list of all arguments that aren't files/globs."""
+
+        _args = []
+
+        for arg in self.all:
+            if not len(_expand_path(arg)):
+                if not os.path.exists(arg):
+                    _args.append(arg)
+
+        return _args
 
     @property
     def copy(self):
