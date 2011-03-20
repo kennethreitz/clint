@@ -189,25 +189,26 @@ class Args(object):
         except IndexError:
             return None
 
+
     @property
     def grouped(self):
         """Extracts --flag groups from argument list.
-           Returns {format: [paths], ...}
+           Returns {format: Args, ...}
         """
 
-        collection = OrderedDict(_=list())
+        collection = OrderedDict(_=Args(no_argv=True))
 
         _current_group = None
 
         for arg in self.all:
             if arg.startswith('-'):
                 _current_group = arg
-                collection[arg] = []
+                collection[arg] = Args(no_argv=True)
             else:
                 if _current_group:
-                    collection[_current_group].append(arg)
+                    collection[_current_group]._args.append(arg)
                 else:
-                    collection['_'].append(arg)
+                    collection['_']._args.append(arg)
 
         return collection
 
