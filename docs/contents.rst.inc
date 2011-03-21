@@ -32,7 +32,7 @@ API Documentation
 Additional Notes
 ----------------
 
-Contibution notes and legal information are here for the interested.
+Contribution notes and legal information are here for the interested.
 
 .. toctree::
    :maxdepth: 2
