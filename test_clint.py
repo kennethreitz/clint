@@ -17,15 +17,6 @@ class TablibTestCase(unittest.TestCas):
         pass
 
 
-    def test_tsplit(self):
-        from clint.utils import tsplit
-
-        s = 'thing1,thing2-thing3/thing4*thing5'
-
-        _s = tsplit(s, [',-/*'])
-        self.
-
-
 
 if __name__ == '__main__':
     unittest.main()

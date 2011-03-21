@@ -16,3 +16,7 @@ History
 * Lots of Examples
 
 
+0.1.2 (2011-03-21)
+++++++++++++++++++
+
+* Bugfixes
