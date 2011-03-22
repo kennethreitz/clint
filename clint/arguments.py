@@ -89,7 +89,7 @@ class Args(object):
         """Removes given arg (or list thereof) from Args object."""
 
         def _remove(x):
-            found = self.find(x)
+            found = self.first(x)
             if found:
                 self._args.pop(found)
 
