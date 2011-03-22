@@ -343,7 +343,8 @@ class Args(object):
                 if not os.path.exists(arg):
                     _args.append(arg)
 
-        return _args
+        return Args(_args, no_argv=True)
+
 
     @property
     def copy(self):
