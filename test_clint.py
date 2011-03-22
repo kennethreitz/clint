@@ -6,7 +6,7 @@
 import unittest
 
 
-class TablibTestCase(unittest.TestCas):
+class TablibTestCase(unittest.TestCase):
     """Tablib test cases."""
 
     def setUp(self):
