@@ -65,9 +65,10 @@ class Writer(object):
         
         if newline:
             s = tsplit(s, NEWLINES)
+            s = map(str, s)
             indent = ''.join(self.shared['indent_strings'])
             
-            s = ('\n' + indent).join(s)
+            s = (str('\n' + indent)).join(s)
         
         _str = ''.join((
             ''.join(self.shared['indent_strings']),
