@@ -14,14 +14,18 @@ from __future__ import absolute_import
 import sys
 
 from .progress import progressbar
+from .formatters import max_width, min_width
 from ..utils import tsplit
 
 
-__all__ = ('puts', 'puts_err', 'indent', 'progressbar')
+__all__ = ('puts', 'puts_err', 'indent', 'progressbar', 'max_width', 'min_width')
 
 
 STDOUT = sys.stdout.write
 STDERR = sys.stderr.write
+
+NEWLINES = ('\n', '\r', '\r\n')
+
 
 
 class Writer(object):
@@ -60,7 +64,7 @@ class Writer(object):
     def __call__(self, s, newline=True, stream=STDOUT):
         
         if newline:
-            s = tsplit(s, ('\n', '\r', '\r\n'))
+            s = tsplit(s, NEWLINES)
             indent = ''.join(self.shared['indent_strings'])
             
             s = ('\n' + indent).join(s)
