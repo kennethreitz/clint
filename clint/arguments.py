@@ -90,7 +90,7 @@ class Args(object):
 
         def _remove(x):
             found = self.first(x)
-            if found:
+            if found is not None:
                 self._args.pop(found)
 
         if is_collection(x):
