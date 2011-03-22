@@ -181,6 +181,25 @@ class Args(object):
         else:
             return _find(x)
 
+
+    def start_with(self, x):
+           """Returns all arguments beginning with given string (or list thereof)"""
+
+           _args = []
+
+           for arg in self.all:
+               if is_collection(x):
+                   for _x in x:
+                       if arg.startswith(x):
+                           _args.append(arg)
+                           break
+               else:
+                   if arg.startswith(x):
+                       _args.append(arg)
+
+           return Args(_args, no_argv=True)
+
+
     def contains_at(self, x, index):
         """Tests if given [list of] string is at given index."""
 
@@ -305,7 +324,7 @@ class Args(object):
     def flags(self):
         """Returns Arg object including only flagged arguments."""
 
-        return self.all_with('-')
+        return self.start_with('-')
 
 
     @property    
