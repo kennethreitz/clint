@@ -11,11 +11,14 @@ This module provides a simple and elegant wrapper for colorama.
 
 from __future__ import absolute_import
 
+import re
+import sys
+
 from ..packages import colorama
 
 
-
-colorama.init(autoreset=True)
+if sys.stdout.isatty():
+    colorama.init(autoreset=True)
 
 
 __all__ = (
@@ -30,9 +33,16 @@ class ColoredString(object):
         super(ColoredString, self).__init__()
         self.s = s
         self.color = color
-        self.color_str = '%s%s%s' % (
-            getattr(colorama.Fore, self.color), self.s, colorama.Fore.RESET)
-        
+
+    @property
+    def color_str(self):
+        if sys.stdout.isatty():
+            return '%s%s%s' % (
+                getattr(colorama.Fore, self.color), self.s, colorama.Fore.RESET)
+        else:
+            return self.s
+
+
     def __len__(self):
         return len(self.s)
         
@@ -46,17 +56,34 @@ class ColoredString(object):
         return self.color_str
         
     def __add__(self, other):
-        return str(self.color_str) + str(other)
+        self.s += other
+        return self
         
     def __radd__(self, other):
-        return str(other) + str(self.color_str)
+        self.s = other + self.s
+        return self
         
     def __mul__(self, other):
         return (self.color_str * other)
         
     def split(self, x=' '):
-        return self.color_str.split(x)
 
+#        print map(self._new, self.s.split(x))
+        return map(self._new, self.s.split(x))
+
+    def _new(self, s):
+        return ColoredString(self.color, s)
+
+
+
+def clean(s):
+    strip = re.compile("([^-_a-zA-Z0-9!@#%&=,/'\";:~`\$\^\*\(\)\+\[\]\.\{\}\|\?\<\>\\]+|[^\s]+)")
+    txt = strip.sub('', str(s))
+
+    strip = re.compile(r'\[\d+m')
+    txt = strip.sub('', txt)
+
+    return txt
 
 
 def black(string):
