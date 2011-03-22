@@ -25,19 +25,19 @@ __all__ = ('Args', )
 
 
 def _expand_path(path):
-	"""Expands directories and globs in given path."""
+    """Expands directories and globs in given path."""
 
-	paths = []
+    paths = []
 
-	if os.path.isdir(path):
+    if os.path.isdir(path):
 
-		for (dir, dirs, files) in os.walk(path):
-			for file in files:
-				paths.append(os.path.join(dir, file))
-	else:
-		paths.extend(glob(path))
+        for (dir, dirs, files) in os.walk(path):
+            for file in files:
+                paths.append(os.path.join(dir, file))
+    else:
+        paths.extend(glob(path))
 
-	return paths
+    return paths
 
 
 class Args(object):
@@ -69,7 +69,7 @@ class Args(object):
 
 
     def __contains__(self, x):
-        return bool(self.first(x))
+        return self.first(x) is not None
 
 
     def get(self, x):
@@ -133,7 +133,7 @@ class Args(object):
         if is_collection(x):
             for item in x:
                 found = _find(item)
-                if found:
+                if found is not None:
                     return found
             return None
         else:
@@ -344,7 +344,6 @@ class Args(object):
                     _args.append(arg)
 
         return Args(_args, no_argv=True)
-
 
     @property
     def copy(self):
