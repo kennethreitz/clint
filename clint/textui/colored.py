@@ -16,6 +16,7 @@ import sys
 
 from ..packages import colorama
 
+DISABLE_COLOR = False
 
 if sys.stdout.isatty():
     colorama.init(autoreset=True)
@@ -23,7 +24,8 @@ if sys.stdout.isatty():
 
 __all__ = (
     'red', 'green', 'yellow', 'blue',
-    'black', 'magenta', 'cyan', 'white'
+    'black', 'magenta', 'cyan', 'white',
+    'clean', 'disable'
 )
 
 
@@ -36,7 +38,7 @@ class ColoredString(object):
 
     @property
     def color_str(self):
-        if sys.stdout.isatty():
+        if sys.stdout.isatty() and not DISABLE_COLOR:
             return '%s%s%s' % (
                 getattr(colorama.Fore, self.color), self.s, colorama.Fore.RESET)
         else:
@@ -67,13 +69,10 @@ class ColoredString(object):
         return (self.color_str * other)
         
     def split(self, x=' '):
-
-#        print map(self._new, self.s.split(x))
         return map(self._new, self.s.split(x))
 
     def _new(self, s):
         return ColoredString(self.color, s)
-
 
 
 def clean(s):
@@ -109,3 +108,9 @@ def cyan(string):
 
 def white(string):
     return ColoredString('WHITE', string)
+
+def disable():
+    """Disables colors."""
+    global DISABLE_COLOR
+
+    DISABLE_COLOR = True
