@@ -58,12 +58,10 @@ class ColoredString(object):
         return self.color_str
         
     def __add__(self, other):
-        self.s += other
-        return self
+        return str(self.color_str) + str(other)
         
     def __radd__(self, other):
-        self.s = other + self.s
-        return self
+        return str(other) + str(self.color_str)
         
     def __mul__(self, other):
         return (self.color_str * other)
