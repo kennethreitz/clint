@@ -5,11 +5,11 @@ History
 ++++++++++++++++++
 
 * Column Printing!!!
-* Disable Colors
+* (Auto/Manual) Disabling of Colors
 * Smarter Colors
 * max_width, min_width
 * Strip cli colors
-* bugfixes
+* bug fixes
 
 
 0.1.2 (2011-03-21)
