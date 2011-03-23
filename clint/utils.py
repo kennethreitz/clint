@@ -49,3 +49,24 @@ def tsplit(string, delimiters):
             
     return stack
 
+def schunk(string, size):
+    """Splits string into n sized chunks."""
+
+    stack = []
+
+    substack = []
+    current_count = 0
+
+    for char in string:
+        if not current_count < size:
+            stack.append(''.join(substack))
+            substack = []
+            current_count = 0
+
+        substack.append(char)
+        current_count += 1
+
+    if len(substack):
+        stack.append(''.join(substack))
+
+    return stack

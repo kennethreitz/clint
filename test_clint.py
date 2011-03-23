@@ -6,7 +6,7 @@
 import unittest
 
 
-class TablibTestCase(unittest.TestCas):
+class TablibTestCase(unittest.TestCase):
     """Tablib test cases."""
 
     def setUp(self):
@@ -15,8 +15,6 @@ class TablibTestCase(unittest.TestCas):
 
     def tearDown(self):
         pass
-
-
 
 if __name__ == '__main__':
     unittest.main()

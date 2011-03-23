@@ -25,19 +25,19 @@ __all__ = ('Args', )
 
 
 def _expand_path(path):
-	"""Expands directories and globs in given path."""
+    """Expands directories and globs in given path."""
 
-	paths = []
+    paths = []
 
-	if os.path.isdir(path):
+    if os.path.isdir(path):
 
-		for (dir, dirs, files) in os.walk(path):
-			for file in files:
-				paths.append(os.path.join(dir, file))
-	else:
-		paths.extend(glob(path))
+        for (dir, dirs, files) in os.walk(path):
+            for file in files:
+                paths.append(os.path.join(dir, file))
+    else:
+        paths.extend(glob(path))
 
-	return paths
+    return paths
 
 
 class Args(object):
@@ -69,7 +69,7 @@ class Args(object):
 
 
     def __contains__(self, x):
-        return bool(self.first(x))
+        return self.first(x) is not None
 
 
     def get(self, x):
@@ -90,7 +90,7 @@ class Args(object):
 
         def _remove(x):
             found = self.first(x)
-            if found:
+            if found is not None:
                 self._args.pop(found)
 
         if is_collection(x):
@@ -133,7 +133,7 @@ class Args(object):
         if is_collection(x):
             for item in x:
                 found = _find(item)
-                if found:
+                if found is not None:
                     return found
             return None
         else:
@@ -180,6 +180,25 @@ class Args(object):
             return None
         else:
             return _find(x)
+
+
+    def start_with(self, x):
+           """Returns all arguments beginning with given string (or list thereof)"""
+
+           _args = []
+
+           for arg in self.all:
+               if is_collection(x):
+                   for _x in x:
+                       if arg.startswith(x):
+                           _args.append(arg)
+                           break
+               else:
+                   if arg.startswith(x):
+                       _args.append(arg)
+
+           return Args(_args, no_argv=True)
+
 
     def contains_at(self, x, index):
         """Tests if given [list of] string is at given index."""
@@ -305,7 +324,7 @@ class Args(object):
     def flags(self):
         """Returns Arg object including only flagged arguments."""
 
-        return self.all_with('-')
+        return self.start_with('-')
 
 
     @property    
@@ -343,7 +362,7 @@ class Args(object):
                 if not os.path.exists(arg):
                     _args.append(arg)
 
-        return _args
+        return Args(_args, no_argv=True)
 
     @property
     def copy(self):
