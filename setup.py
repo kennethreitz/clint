@@ -19,7 +19,7 @@ required = []
 
 setup(
     name='clint',
-    version='0.1.2',
+    version='0.2.0',
     description='Python Command-line Application Tools',
     long_description=open('README.rst').read() + '\n\n' +
                      open('HISTORY.rst').read(),
