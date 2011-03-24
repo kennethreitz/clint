@@ -9,6 +9,7 @@ Various Python helpers used within clint.
 """
 
 from __future__ import absolute_import
+from __future__ import with_statement
 
 import sys
 import errno
@@ -28,7 +29,7 @@ def mkdir_p(path):
     """Emulates `mkdir -p` behavior."""
     try:
         makedirs(path)
-    except OSError as exc: # Python >2.5
+    except OSError, exc: # Python >2.5
         if exc.errno == errno.EEXIST:
             pass
         else:

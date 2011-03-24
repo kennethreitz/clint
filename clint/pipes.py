@@ -9,6 +9,7 @@ This module contains the helper functions for dealing with unix pipes.
 """
 
 from __future__ import absolute_import
+from __future__ import with_statement
 
 import sys
 

@@ -4,6 +4,8 @@
 import sys
 import os
 
+from __future__ import with_statement
+
 sys.path.insert(0, os.path.abspath('..'))
 
 from clint import piped_in
