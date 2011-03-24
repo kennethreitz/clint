@@ -6,6 +6,9 @@ import sys
 
 from distutils.core import setup
 
+import clint
+
+
 
 def publish():
     """Publish to PyPi"""
@@ -19,7 +22,7 @@ required = []
 
 setup(
     name='clint',
-    version='0.2.0',
+    version=clint.__version__,
     description='Python Command-line Application Tools',
     long_description=open('README.rst').read() + '\n\n' +
                      open('HISTORY.rst').read(),
@@ -29,7 +32,6 @@ setup(
     packages= [
         'clint',
         'clint.textui',
-
         'clint.packages', 'clint.packages.colorama'
     ],
     install_requires=required,
@@ -40,7 +42,7 @@ setup(
         'Natural Language :: English',
         'License :: OSI Approved :: ISC License (ISCL)',
         'Programming Language :: Python',
-        # 'Programming Language :: Python :: 2.5',
+        'Programming Language :: Python :: 2.5',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         # 'Programming Language :: Python :: 3.0',

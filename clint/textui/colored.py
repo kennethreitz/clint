@@ -16,17 +16,17 @@ import sys
 
 from ..packages import colorama
 
-DISABLE_COLOR = False
-
-if sys.stdout.isatty():
-    colorama.init(autoreset=True)
-
-
 __all__ = (
     'red', 'green', 'yellow', 'blue',
     'black', 'magenta', 'cyan', 'white',
     'clean', 'disable'
 )
+
+COLORS = __all__[:-2]
+DISABLE_COLOR = False
+
+if sys.stdout.isatty():
+    colorama.init(autoreset=True)
 
 
 class ColoredString(object):

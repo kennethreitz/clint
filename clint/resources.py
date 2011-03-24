@@ -10,6 +10,7 @@ This module contains all the application resource features of clint.
 
 
 from __future__ import absolute_import
+from __future__ import with_statement
 
 import errno
 from os import remove, removedirs
