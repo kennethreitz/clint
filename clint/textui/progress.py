@@ -13,7 +13,7 @@ from __future__ import absolute_import
 import sys
 
 
-def progressbar(it, prefix='', size=32, hide=False):
+def bar(it, prefix='', size=32, hide=False):
     """Progress iterator. Wrap your iterables with it."""
     count = len(it)
     if count:
