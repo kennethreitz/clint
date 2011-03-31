@@ -44,8 +44,8 @@ Current Features:
 Future Features:
 ----------------
 - Documentation!
-- Simple choice system `Are you sure? [Yn]`
-- Default query system `Installation Path [/usr/local/bin/]`
+- Simple choice system ``Are you sure? [Yn]``
+- Default query system ``Installation Path [/usr/local/bin/]``
 - Suggestions welcome.
 
 
