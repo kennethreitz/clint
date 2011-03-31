@@ -13,13 +13,13 @@ from __future__ import absolute_import
 
 import sys
 
-from .progress import progressbar
+from . import progress 
 from .formatters import max_width, min_width
 from .cols import columns
 from ..utils import tsplit
 
 
-__all__ = ('puts', 'puts_err', 'indent', 'progressbar', 'columns', 'max_width', 'min_width')
+__all__ = ('puts', 'puts_err', 'indent', 'progress', 'columns', 'max_width', 'min_width')
 
 
 STDOUT = sys.stdout.write
