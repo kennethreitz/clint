@@ -20,7 +20,7 @@ def bar(it, prefix='', size=32, hide=False):
         def _show(_i):
             x = int(size*_i/count)
             if not hide:
-                sys.stdout.write("%s[%s>%s] %i/%i\r" % (prefix, "="*x, "-"*(size-x), _i, count))
+                sys.stdout.write("%s[%s%s] %i/%i\r" % (prefix, "="*x, "-"*(size-x), _i, count))
                 sys.stdout.flush()
 
         _show(0)
