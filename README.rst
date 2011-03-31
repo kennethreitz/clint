@@ -22,8 +22,9 @@ It has an awesome Column printer with optional auto-expanding columns. It detect
 The world's easiest to use implicit argument system w/ chaining methods for filtering. Seriously. 
 
 
-Run the various executables in ``./examples`` to get a good feel for what Clint offers.
+Run the various executables in examples_ to get a good feel for what Clint offers.
 
+.. _examples: https://github.com/kennethreitz/clint/tree/develop/examples
 
 You'll never want to not use it.
 
