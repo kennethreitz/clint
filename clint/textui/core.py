@@ -13,13 +13,12 @@ from __future__ import absolute_import
 
 import sys
 
-from . import progress 
 from .formatters import max_width, min_width
 from .cols import columns
 from ..utils import tsplit
 
 
-__all__ = ('puts', 'puts_err', 'indent', 'progress', 'columns', 'max_width', 'min_width')
+__all__ = ('puts', 'puts_err', 'indent', 'columns', 'max_width', 'min_width')
 
 
 STDOUT = sys.stdout.write
@@ -81,7 +80,7 @@ class Writer(object):
 
 def puts(s, newline=True):
     """Prints given string to stdout via Writer interface."""
-    Writer()(s, stream=STDOUT)
+    Writer()(s, newline, stream=STDOUT)
 
 
 def puts_err(s, newline=True):
