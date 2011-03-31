@@ -33,6 +33,7 @@ Current Features:
 -----------------
 - Little Documentation (bear with me for now)
 - CLI Colors and Indents
+- Extremely Simple + Powerful Column Printer
 - Iterator-based Progress Bar
 - Implicit Argument Handling
 - Simple Support for Incoming Unix Pipes
