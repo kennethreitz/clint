@@ -30,3 +30,18 @@ def progressbar(it, prefix='', size=32, hide=False):
     if not hide:
         sys.stdout.write("\n")
         sys.stdout.flush()
+
+
+def dots(it, prefix='', hide=False):
+    """Progress iterator. Prints a dot for each item being iterated"""
+    count = len(it)
+    if count:
+        def _show(_i):
+            sys.stdout.write('.')
+
+        _show(0)
+    for i, item in enumerate(it):
+        yield item
+        _show(i+1)
+    if not hide:
+        sys.stdout.write("\n")
