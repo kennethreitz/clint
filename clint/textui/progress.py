@@ -13,14 +13,14 @@ from __future__ import absolute_import
 import sys
 
 
-def bar(it, prefix='', size=32, hide=False):
+def bar(it, prefix='', width=32, hide=False):
     """Progress iterator. Wrap your iterables with it."""
     count = len(it)
     if count:
         def _show(_i):
-            x = int(size*_i/count)
+            x = int(width*_i/count)
             if not hide:
-                sys.stdout.write("%s[%s%s] %i/%i\r" % (prefix, "="*x, "-"*(size-x), _i, count))
+                sys.stdout.write("%s[%s%s] %i/%i\r" % (prefix, "="*x, "-"*(width-x), _i, count))
                 sys.stdout.flush()
 
         _show(0)
