@@ -78,9 +78,9 @@ class Writer(object):
         stream(_str)
 
 
-def puts(s, newline=True):
+def puts(s, newline=True, stream=STDOUT):
     """Prints given string to stdout via Writer interface."""
-    Writer()(s, newline, stream=STDOUT)
+    Writer()(s, newline, stream=stream)
 
 
 def puts_err(s, newline=True):
