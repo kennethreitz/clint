@@ -25,9 +25,7 @@ __all__ = (
 COLORS = __all__[:-2]
 DISABLE_COLOR = False
 
-if sys.stdout.isatty():
-    colorama.init(autoreset=True)
-else:
+if not sys.stdout.isatty():
     DISABLE_COLOR = True
 
 
@@ -41,6 +39,7 @@ class ColoredString(object):
     @property
     def color_str(self):
         if sys.stdout.isatty() and not DISABLE_COLOR:
+            colorama.init(autoreset=True)
             return '%s%s%s' % (
                 getattr(colorama.Fore, self.color), self.s, colorama.Fore.RESET)
         else:
@@ -49,25 +48,25 @@ class ColoredString(object):
 
     def __len__(self):
         return len(self.s)
-        
+
     def __repr__(self):
         return "<%s-string: '%s'>" % (self.color, self.s)
-        
+
     def __str__(self):
         return self.__unicode__().encode('utf8')
-        
+
     def __unicode__(self):
         return self.color_str
-        
+
     def __add__(self, other):
         return str(self.color_str) + str(other)
-        
+
     def __radd__(self, other):
         return str(other) + str(self.color_str)
-        
+
     def __mul__(self, other):
         return (self.color_str * other)
-        
+
     def split(self, x=' '):
         return map(self._new, self.s.split(x))
 
