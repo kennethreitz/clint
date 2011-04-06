@@ -78,14 +78,14 @@ class Writer(object):
         stream(_str)
 
 
-def puts(s, newline=True, stream=STDOUT):
+def puts(s='', newline=True, stream=STDOUT):
     """Prints given string to stdout via Writer interface."""
     Writer()(s, newline, stream=stream)
 
 
-def puts_err(s, newline=True):
+def puts_err(s='', newline=True, stream=STDERR):
     """Prints given string to stderr via Writer interface."""
-    Writer()(s, stream=STDERR)
+    Writer()(s, newline, stream=stream)
 
 
 def indent(indent=4, quote=''):
