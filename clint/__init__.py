@@ -19,8 +19,8 @@ from .pipes import piped_in
 
 
 __title__ = 'clint'
-__version__ = '0.2.1'
-__build__ = 0x000201
+__version__ = '0.2.3'
+__build__ = 0x000203
 __author__ = 'Kenneth Reitz'
 __license__ = 'ISC'
 __copyright__ = 'Copyright 2011 Kenneth Reitz'
