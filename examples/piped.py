@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import with_statement
+
 import sys
 import os
-
-from __future__ import with_statement
 
 sys.path.insert(0, os.path.abspath('..'))
 

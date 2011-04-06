@@ -39,7 +39,7 @@ class AppDir(object):
 
     def __repr__(self):
         return '<app-dir: %s>' % (self.path)
-    
+
 
     def __getattribute__(self, name):
 
@@ -53,11 +53,11 @@ class AppDir(object):
         """Raises if operations are carried out on an unconfigured AppDir."""
         if not self.path:
             raise NotConfigured()
-        
+
 
     def _create(self):
         """Creates current AppDir at AppDir.path."""
-        
+
         self._raise_if_none()
         if not self._exists:
             mkdir_p(self.path)
@@ -66,7 +66,7 @@ class AppDir(object):
 
     def open(self, filename, mode='r'):
         """Returns file object from given filename."""
-        
+
         self._raise_if_none()
         fn = path_join(self.path, filename)
 
@@ -121,11 +121,11 @@ class AppDir(object):
             else:
                 raise why
 
-        
+
     def read(self, filename, binary=False):
         """Returns contents of given file with AppDir.
         If file doesn't exist, returns None."""
-        
+
         self._raise_if_none()
         fn = path_join(self.path, filename)
 
@@ -161,11 +161,11 @@ log = AppDir()
 def init(vendor, name):
 
     global user, site, cache, log
-    
+
     ad = AppDirs(name, vendor)
 
     user.path = ad.user_data_dir
-    
+
     site.path = ad.site_data_dir
     cache.path = ad.user_cache_dir
     log.path = ad.user_log_dir

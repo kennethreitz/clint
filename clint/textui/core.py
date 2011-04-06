@@ -13,13 +13,12 @@ from __future__ import absolute_import
 
 import sys
 
-from .progress import progressbar
 from .formatters import max_width, min_width
 from .cols import columns
 from ..utils import tsplit
 
 
-__all__ = ('puts', 'puts_err', 'indent', 'progressbar', 'columns', 'max_width', 'min_width')
+__all__ = ('puts', 'puts_err', 'indent', 'columns', 'max_width', 'min_width')
 
 
 STDOUT = sys.stdout.write
@@ -63,14 +62,14 @@ class Writer(object):
 
 
     def __call__(self, s, newline=True, stream=STDOUT):
-        
+
         if newline:
             s = tsplit(s, NEWLINES)
             s = map(str, s)
             indent = ''.join(self.shared['indent_strings'])
-            
+
             s = (str('\n' + indent)).join(s)
-        
+
         _str = ''.join((
             ''.join(self.shared['indent_strings']),
             str(s),
@@ -79,14 +78,14 @@ class Writer(object):
         stream(_str)
 
 
-def puts(s, newline=True):
+def puts(s='', newline=True, stream=STDOUT):
     """Prints given string to stdout via Writer interface."""
-    Writer()(s, stream=STDOUT)
+    Writer()(s, newline, stream=stream)
 
 
-def puts_err(s, newline=True):
+def puts_err(s='', newline=True, stream=STDERR):
     """Prints given string to stderr via Writer interface."""
-    Writer()(s, stream=STDERR)
+    Writer()(s, newline, stream=stream)
 
 
 def indent(indent=4, quote=''):
