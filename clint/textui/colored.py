@@ -15,6 +15,7 @@ import re
 import sys
 
 from ..packages import colorama
+from ..packages.colorama.conv import html
 
 __all__ = (
     'red', 'green', 'yellow', 'blue',
@@ -41,7 +42,7 @@ class ColoredString(object):
         if sys.stdout.isatty() and not DISABLE_COLOR:
             colorama.init(autoreset=True)
             return '%s%s%s' % (
-                getattr(colorama.Fore, self.color), self.s, colorama.Fore.RESET)
+                colorama.Fore(self.color), self.s, colorama.Fore.RESET)
         else:
             return self.s
 
@@ -78,7 +79,7 @@ def clean(s):
     strip = re.compile("([^-_a-zA-Z0-9!@#%&=,/'\";:~`\$\^\*\(\)\+\[\]\.\{\}\|\?\<\>\\]+|[^\s]+)")
     txt = strip.sub('', str(s))
 
-    strip = re.compile(r'\[\d+m')
+    strip = re.compile(r'\[[\d;]+m')
     txt = strip.sub('', txt)
 
     return txt
@@ -107,6 +108,24 @@ def cyan(string):
 
 def white(string):
     return ColoredString('WHITE', string)
+
+def rgb(color, string):
+    """
+    RGB-colored text. 
+    
+    The `color` argument can have the following formats:
+    - #3f3f3f
+    - 3f3f3f
+    - ('3f', '3f', '3f')
+    - (100, 24, 244)
+    """
+    if isinstance(color, basestring):
+        color = html.to_rgb(color)
+    else:
+        if isinstance(color[0], basestring):
+            color = (int(color[0],16), int(color[1],16), int(color[2],16))
+    
+    return ColoredString(color, string)
 
 def disable():
     """Disables colors."""

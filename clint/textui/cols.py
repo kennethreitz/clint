@@ -94,6 +94,7 @@ def columns(*cols, **kwargs):
         cols[_big_col][1] = (cwidth - _total_cols) - len(cols)
         cols[_big_col][0] = max_width(cols[_big_col][0], cols[_big_col][1]).split('\n')
 
+
     height = len(max([c[0] for c in cols], key=len))
     
     for i, (strings, width) in enumerate(cols):
