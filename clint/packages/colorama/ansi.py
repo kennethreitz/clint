@@ -20,7 +20,7 @@ class AnsiCodes(object):
 
     def __call__(self, code):
         if isinstance(code, basestring):
-            return code
+            return getattr(self, code)
         else: # extended (pass to capability)
             return code_to_chars(getattr(caps.capability, self._method)(code))
 
