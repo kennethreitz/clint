@@ -31,7 +31,6 @@ def join(l, conj=CONJUNCTION, im_a_moron=MORON_MODE, seperator=COMMA):
             collector.append(seperator)
         elif left == 1:
             if len(l) == 2 or im_a_moron:
-                print
                 collector.append(SPACE)
             else:
                 collector.append(seperator)
