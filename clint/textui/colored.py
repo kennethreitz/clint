@@ -27,6 +27,8 @@ DISABLE_COLOR = False
 
 if not sys.stdout.isatty():
     DISABLE_COLOR = True
+else:
+    colorama.init(autoreset=True)
 
 
 class ColoredString(object):
@@ -39,7 +41,6 @@ class ColoredString(object):
     @property
     def color_str(self):
         if sys.stdout.isatty() and not DISABLE_COLOR:
-            colorama.init(autoreset=True)
             return '%s%s%s' % (
                 getattr(colorama.Fore, self.color), self.s, colorama.Fore.RESET)
         else:
