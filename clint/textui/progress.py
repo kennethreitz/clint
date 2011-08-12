@@ -19,7 +19,7 @@ BAR_TEMPLATE = '%s[%s%s] %i/%i\r'
 DOTS_CHAR = '.'
 
 
-def bar(it, label='', width=32, hide=False, bar_empty_char='-', bar_filled_char='='):
+def bar(it, label='', width=32, hide=False, empty_char='-', filled_char='='):
     """Progress iterator. Wrap your iterables with it."""
 
     def _show(_i):
