@@ -13,31 +13,11 @@ from __future__ import absolute_import
 
 import os
 from sys import argv
-from glob import glob
 
 from .packages.ordereddict import OrderedDict
-from .utils import is_collection
-
-
+from .utils import expand_path, is_collection
 
 __all__ = ('Args', )
-
-
-
-def _expand_path(path):
-    """Expands directories and globs in given path."""
-
-    paths = []
-
-    if os.path.isdir(path):
-
-        for (dir, dirs, files) in os.walk(path):
-            for file in files:
-                paths.append(os.path.join(dir, file))
-    else:
-        paths.extend(glob(path))
-
-    return paths
 
 
 class Args(object):
@@ -110,20 +90,20 @@ class Args(object):
 
     def any_contain(self, x):
         """Tests if given string is contained in any stored argument."""
-        
+
         return bool(self.first_with(x))
 
 
     def contains(self, x):
-        """Tests if given object is in arguments list. 
+        """Tests if given object is in arguments list.
            Accepts strings and lists of strings."""
-        
+
         return self.__contains__(x)
 
 
     def first(self, x):
         """Returns first found index of given value (or list of values)"""
-        
+
         def _find( x):
             try:
                 return self.all.index(str(x))
@@ -212,7 +192,7 @@ class Args(object):
                         return False
             else:
                 return (x in self.all[index])
-        
+
         except IndexError:
             return False
 
@@ -221,7 +201,7 @@ class Args(object):
         """Returns true if argument exists at given index.
            Accepts: integer.
         """
-        
+
         try:
             self.all[x]
             return True
@@ -231,15 +211,15 @@ class Args(object):
 
     def value_after(self, x):
         """Returns value of argument after given found argument (or list thereof)."""
-        
+
         try:
             try:
                 i = self.all.index(x)
             except ValueError:
                 return None
-                
+
             return self.all[i + 1]
-            
+
         except IndexError:
             return None
 
@@ -266,21 +246,21 @@ class Args(object):
 
         return collection
 
-    
+
     @property
     def last(self):
         """Returns last argument."""
-        
+
         try:
             return self.all[-1]
         except IndexError:
             return None
 
-    
+
     @property
     def all(self):
         """Returns all arguments."""
-        
+
         return self._args
 
 
@@ -288,7 +268,7 @@ class Args(object):
         """Returns all arguments containing given string (or list thereof)"""
 
         _args = []
-        
+
         for arg in self.all:
             if is_collection(x):
                 for _x in x:
@@ -327,7 +307,7 @@ class Args(object):
         return self.start_with('-')
 
 
-    @property    
+    @property
     def not_flags(self):
         """Returns Arg object excluding flagged arguments."""
 
@@ -341,7 +321,7 @@ class Args(object):
         _paths = []
 
         for arg in self.all:
-            for path in _expand_path(arg):
+            for path in expand_path(arg):
                 if os.path.exists(path):
                     if absolute:
                         _paths.append(os.path.abspath(path))
@@ -358,7 +338,7 @@ class Args(object):
         _args = []
 
         for arg in self.all:
-            if not len(_expand_path(arg)):
+            if not len(expand_path(arg)):
                 if not os.path.exists(arg):
                     _args.append(arg)
 
