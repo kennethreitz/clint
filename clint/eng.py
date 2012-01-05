@@ -7,6 +7,7 @@ clint.eng
 This module provides English language string helpers.
 
 """
+from __future__ import print_function
 
 MORON_MODE = False
 COMMA = ','
@@ -41,9 +42,9 @@ def join(l, conj=CONJUNCTION, im_a_moron=MORON_MODE, seperator=COMMA):
     return unicode(str().join(collector))
 
 if __name__ == '__main__':
-    print join(['blue', 'red', 'yellow'], conj='or', im_a_moron=True)
-    print join(['blue', 'red', 'yellow'], conj='or')
-    print join(['blue', 'red'], conj='or')
-    print join(['blue', 'red'], conj='and')
-    print join(['blue'], conj='and')
-    print join(['blue', 'red', 'yellow', 'green', 'ello'], conj='and')
+    print(join(['blue', 'red', 'yellow'], conj='or', im_a_moron=True))
+    print(join(['blue', 'red', 'yellow'], conj='or'))
+    print(join(['blue', 'red'], conj='or'))
+    print(join(['blue', 'red'], conj='and'))
+    print(join(['blue'], conj='and'))
+    print(join(['blue', 'red', 'yellow', 'green', 'ello'], conj='and'))
