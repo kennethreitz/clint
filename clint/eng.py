@@ -14,6 +14,11 @@ COMMA = ','
 CONJUNCTION = 'and'
 SPACE = ' '
 
+try:
+    unicode
+except NameError:
+    unicode = str
+
 
 def join(l, conj=CONJUNCTION, im_a_moron=MORON_MODE, seperator=COMMA):
     """Joins lists of words. Oxford comma and all."""
