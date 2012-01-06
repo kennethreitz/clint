@@ -17,16 +17,17 @@ STREAM = sys.stderr
 BAR_TEMPLATE = '%s[%s%s] %i/%i\r'
 
 DOTS_CHAR = '.'
+BAR_FILLED_CHAR = '#'
+BAR_EMPTY_CHAR = ' '
 
-
-def bar(it, label='', width=32, hide=False, empty_char='-', filled_char='='):
+def bar(it, label='', width=32, hide=False, empty_char=BAR_EMPTY_CHAR, filled_char=BAR_FILLED_CHAR):
     """Progress iterator. Wrap your iterables with it."""
 
     def _show(_i):
         x = int(width*_i/count)
         if not hide:
             STREAM.write(BAR_TEMPLATE % (
-                label, bar_filled_char*x, bar_empty_char*(width-x), _i, count))
+                label, filled_char*x, empty_char*(width-x), _i, count))
             STREAM.flush()
 
     count = len(it)
