@@ -19,11 +19,11 @@ from .pipes import piped_in
 
 
 __title__ = 'clint'
-__version__ = '0.2.5'
-__build__ = 0x000205
+__version__ = '0.3.0'
+__build__ = 0x000300
 __author__ = 'Kenneth Reitz'
 __license__ = 'ISC'
-__copyright__ = 'Copyright 2011 Kenneth Reitz'
+__copyright__ = 'Copyright 2012 Kenneth Reitz'
 __docformat__ = 'restructuredtext'
 
 
