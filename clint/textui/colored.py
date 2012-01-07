@@ -27,7 +27,7 @@ __all__ = (
 COLORS = __all__[:-2]
 
 if 'get_ipython' in dir():
-   """
+    """
        when ipython is fired lot of variables like _oh, etc are used.
        There are so many ways to find current python interpreter is ipython.
        get_ipython is easiest is most appealing for readers to understand.
@@ -36,10 +36,6 @@ if 'get_ipython' in dir():
 else:
     DISABLE_COLOR = False
 
-if not sys.stdout.isatty():
-    DISABLE_COLOR = True
-else:
-    colorama.init(autoreset=True)
 
 
 class ColoredString(object):
