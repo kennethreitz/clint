@@ -27,11 +27,11 @@ __all__ = (
 COLORS = __all__[:-2]
 
 if 'get_ipython' in dir():
-"""
-    when ipython is fired lot of variables like _oh, etc are used.
-    There are so many ways to find current python interpreter is ipython.
-    get_ipython is easiest is most appealing for readers to understand.
-"""
+   """
+       when ipython is fired lot of variables like _oh, etc are used.
+       There are so many ways to find current python interpreter is ipython.
+       get_ipython is easiest is most appealing for readers to understand.
+    """
     DISABLE_COLOR = True
 else:
     DISABLE_COLOR = False
