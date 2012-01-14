@@ -63,7 +63,7 @@ class ColoredString(object):
     def __unicode__(self):
         value = self.color_str
         if isinstance(value, str):
-            return ('%s' % value).decode('utf8')
+            return value.decode('utf8')
         return value
 
     if PY3:
