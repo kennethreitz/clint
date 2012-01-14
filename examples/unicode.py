@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import os
 import sys
+import codecs
+
 sys.path.insert(0, os.path.abspath('..'))
 
+try:
+    import json
+except:
+    import simplejson as json
+
 from clint import args
+from clint import piped_in
 from clint.textui import colored, puts, indent
 
 if __name__ == '__main__':
@@ -28,5 +35,25 @@ if __name__ == '__main__':
     puts('')
     puts('Arguments:')
     with indent(4):
-        for arg in args.all:
-            puts('%s' % colored.red(arg))
+        puts('%s' % colored.red(args[0]))
+
+    puts('')
+    puts('File:')
+    with indent(4):
+        f = args.files[0]
+        puts(colored.yellow('%s:' % f))
+        with indent(2):
+            fd = codecs.open(f, encoding='utf-8')
+            for line in fd:
+                line = line.strip('\n\r')
+                puts(colored.yellow('  %s' % line))
+            fd.close()
+
+    puts('')
+    puts('Input:')
+    with indent(4):
+        in_data = json.loads(piped_in())
+        title = in_data['title']
+        text = in_data['text']
+        puts(colored.blue('Title: %s' % title))
+        puts(colored.magenta('Text: %s' % text))
