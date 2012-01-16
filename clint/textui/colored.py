@@ -25,12 +25,17 @@ __all__ = (
 )
 
 COLORS = __all__[:-2]
-DISABLE_COLOR = False
 
-if not sys.stdout.isatty():
+if 'get_ipython' in dir():
+    """
+       when ipython is fired lot of variables like _oh, etc are used.
+       There are so many ways to find current python interpreter is ipython.
+       get_ipython is easiest is most appealing for readers to understand.
+    """
     DISABLE_COLOR = True
 else:
-    colorama.init(autoreset=True)
+    DISABLE_COLOR = False
+
 
 
 class ColoredString(object):
@@ -56,7 +61,10 @@ class ColoredString(object):
         return "<%s-string: '%s'>" % (self.color, self.s)
 
     def __unicode__(self):
-        return self.color_str
+        value = self.color_str
+        if isinstance(value, str) and hasattr(value, 'decode'):
+            return value.decode('utf8')
+        return value
 
     if PY3:
         __str__ = __unicode__
