@@ -11,10 +11,11 @@ This module provides the progressbar functionality.
 from __future__ import absolute_import
 
 import sys
+import time
 
 STREAM = sys.stderr
 
-BAR_TEMPLATE = '%s[%s%s] %i/%i\r'
+BAR_TEMPLATE = '%s[%s%s] %i/%i - %s\r'
 MILL_TEMPLATE = '%s %s %i/%i\r'  
 
 DOTS_CHAR = '.'
@@ -26,14 +27,17 @@ def bar(it, label='', width=32, hide=False, empty_char=BAR_EMPTY_CHAR, filled_ch
     """Progress iterator. Wrap your iterables with it."""
 
     def _show(_i):
+        ETA = -((start-time.time())/(_i+1)) * (count-_i)
+        ETADisp = time.strftime('%H:%M:%S', time.gmtime(ETA))
         x = int(width*_i/count)
         if not hide:
             STREAM.write(BAR_TEMPLATE % (
-                label, filled_char*x, empty_char*(width-x), _i, count))
+            label, filled_char*x, empty_char*(width-x), _i, count, ETADisp))
             STREAM.flush()
 
     count = len(it)
 
+    start = time.time()
     if count:
         _show(0)
 
