@@ -58,8 +58,11 @@ class Writer(object):
 
 
     def __exit__(self, type, value, traceback):
-        self.shared['indent_strings'].pop()
+        self._dedent()
 
+    @classmethod
+    def _dedent(cls):
+        cls.shared['indent_strings'].pop()        
 
     def __call__(self, s, newline=True, stream=STDOUT):
 
@@ -91,3 +94,7 @@ def puts_err(s='', newline=True, stream=STDERR):
 def indent(indent=4, quote=''):
     """Indentation context manager."""
     return Writer(indent=indent, quote=quote)
+    
+def dedent():
+    return Writer._dedent()
+
