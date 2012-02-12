@@ -52,7 +52,7 @@ def _indent(indent=0, quote='', indent_char=' '):
 # Public
 
 def puts(s='', newline=True, stream=STDOUT):
-    """Prints given string to stdout via Writer interface."""
+    """Prints given string to stdout."""
     if newline:
         s = tsplit(s, NEWLINES)
         s = map(str, s)
@@ -68,7 +68,7 @@ def puts(s='', newline=True, stream=STDOUT):
     stream(_str)
 
 def puts_err(s='', newline=True, stream=STDERR):
-    """Prints given string to stderr via Writer interface."""
+    """Prints given string to stderr."""
     puts(s, newline, stream)
 
 def dedent():
@@ -78,10 +78,11 @@ def dedent():
 
 @contextmanager
 def _indent_context():
+    """Indentation context manager."""
     yield
     dedent()
 
 def indent(indent=4, quote=''):
-    """Indentation context manager."""
+    """Indentation manager, return an indentation context manager."""
     _indent(indent, quote)
     return _indent_context()
