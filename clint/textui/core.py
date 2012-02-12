@@ -49,14 +49,6 @@ def _indent(indent=0, quote='', indent_char=' '):
     if len(indent_string):
         INDENT_STRINGS.append(indent_string)
 
-class IndentContext(object):
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, type, value, traceback):
-        dedent()
-
 # Public
 
 def puts(s='', newline=True, stream=STDOUT):
@@ -84,7 +76,12 @@ def dedent():
     context."""
     INDENT_STRINGS.pop()
 
+@contextmanager
+def _indent_context():
+    yield
+    dedent()
+
 def indent(indent=4, quote=''):
     """Indentation context manager."""
     _indent(indent, quote)
-    return IndentContext()
+    return _indent_context()
