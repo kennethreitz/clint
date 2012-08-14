@@ -15,7 +15,10 @@ import time
 
 STREAM = sys.stderr
 # Only show bar in terminals by default (better for piping, logging etc.)
-HIDE_DEFAULT = False if STREAM.isatty() else True
+try:
+    HIDE_DEFAULT = not STREAM.isatty()
+except AttributeError:  # output does not support isatty()
+    HIDE_DEFAULT = True
 
 BAR_TEMPLATE = '%s[%s%s] %i/%i - %s\r'
 MILL_TEMPLATE = '%s %s %i/%i\r'  
