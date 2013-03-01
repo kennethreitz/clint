@@ -67,11 +67,11 @@ def bar(it, label='', width=32, hide=HIDE_DEFAULT, empty_char=BAR_EMPTY_CHAR, fi
         _show(i+1)
 
     if not hide:
-        STREAM.write('\n')
-        STREAM.flush()
+            STREAM.write('\n')
+            STREAM.flush()
 
 
-def dots(it, label='', hide=HIDE_DEFAULT):
+def dots(it, label='', hide=HIDE_DEFAULT, every=1):
     """Progress iterator. Prints a dot for each item being iterated"""
 
     count = 0
@@ -79,10 +79,11 @@ def dots(it, label='', hide=HIDE_DEFAULT):
     if not hide:
         STREAM.write(label)
 
-    for item in it:
+    for (i, item) in enumerate(it):
         if not hide:
-            STREAM.write(DOTS_CHAR)
-            sys.stderr.flush()
+            if (i % every)==0:         # True every "every" updates
+                STREAM.write(DOTS_CHAR)
+                sys.stderr.flush()
 
         count += 1
 
@@ -92,7 +93,7 @@ def dots(it, label='', hide=HIDE_DEFAULT):
     STREAM.flush()
 
 
-def mill(it, label='', hide=HIDE_DEFAULT, expected_size=None):
+def mill(it, label='', hide=HIDE_DEFAULT, expected_size=None, every=1):
     """Progress iterator. Prints a mill while iterating over the items."""
 
     def _mill_char(_i):
@@ -103,9 +104,12 @@ def mill(it, label='', hide=HIDE_DEFAULT, expected_size=None):
 
     def _show(_i):
         if not hide:
-            STREAM.write(MILL_TEMPLATE % (
-                label, _mill_char(_i), _i, count))
-            STREAM.flush()
+            if ((_i % every)==0 or         # True every "every" updates
+                (_i == count)):            # And when we're done
+
+                STREAM.write(MILL_TEMPLATE % (
+                    label, _mill_char(_i), _i, count))
+                STREAM.flush()
 
     count = len(it) if expected_size is None else expected_size
 
