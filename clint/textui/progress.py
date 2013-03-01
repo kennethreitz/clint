@@ -33,7 +33,7 @@ ETA_INTERVAL = 1
 #How many intervals (excluding the current one) to calculate the simple moving average
 ETA_SMA_WINDOW = 9
 
-def bar(it, label='', width=32, hide=HIDE_DEFAULT, empty_char=BAR_EMPTY_CHAR, filled_char=BAR_FILLED_CHAR, expected_size=None):
+def bar(it, label='', width=32, hide=HIDE_DEFAULT, empty_char=BAR_EMPTY_CHAR, filled_char=BAR_FILLED_CHAR, expected_size=None, every=1):
     """Progress iterator. Wrap your iterables with it."""
 
     def _show(_i):
@@ -44,9 +44,11 @@ def bar(it, label='', width=32, hide=HIDE_DEFAULT, empty_char=BAR_EMPTY_CHAR, fi
             bar.etadisp = time.strftime('%H:%M:%S', time.gmtime(bar.eta))
         x = int(width*_i/count)
         if not hide:
-            STREAM.write(BAR_TEMPLATE % (
-            label, filled_char*x, empty_char*(width-x), _i, count, bar.etadisp))
-            STREAM.flush()
+            if ((_i % every)==0 or         # True every "every" updates
+                (_i == count)):            # And when we're done
+                STREAM.write(BAR_TEMPLATE % (
+                    label, filled_char*x, empty_char*(width-x), _i, count, bar.etadisp))
+                STREAM.flush()
 
     count = len(it) if expected_size is None else expected_size
 
