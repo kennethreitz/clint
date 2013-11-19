@@ -8,7 +8,7 @@ Module for simple interactive prompts handling
 
 """
 
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 
 from re import match, I
 
@@ -30,7 +30,7 @@ def yn(prompt, default='y', batch=False):
         if not batch:
             input = raw_input(prompt).strip()
         else:
-            print prompt
+            print(prompt)
             input = ''
 
         # If input is empty default choice is assumed
