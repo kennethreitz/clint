@@ -28,8 +28,10 @@ Run the various executables in examples_ to get a good feel for what Clint offer
 
 You'll never want to not use it.
 
-.. image:: https://travis-ci.org/ashleyh/clint.png?branch=master :target: https://travis-ci.org/ashleyh/clint
-.. image:: https://coveralls.io/repos/ashleyh/clint/badge.png?branch=master :target: https://coveralls.io/r/ashleyh/clint?branch=master 
+.. image:: https://travis-ci.org/ashleyh/clint.png?branch=master
+   :target: https://travis-ci.org/ashleyh/clint
+.. image:: https://coveralls.io/repos/ashleyh/clint/badge.png?branch=master
+   :target: https://coveralls.io/r/ashleyh/clint?branch=master 
 
 
 Current Features:
