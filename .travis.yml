@@ -6,6 +6,8 @@ python:
   - 3.3
   - pypy
 install:
-  - pip install pytest args
+  - pip install pytest args coveralls pytest-cov
 script:
-  - py.test
+  - py.test --cov clint
+after_success:
+  coveralls
