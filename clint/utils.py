@@ -17,7 +17,7 @@ from os import makedirs
 from glob import glob
 
 try:
-    basestring
+    basestring = basestring
 except NameError:
     basestring = str
 
