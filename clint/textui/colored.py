@@ -40,12 +40,13 @@ else:
 
 class ColoredString(object):
     """Enhanced string for __len__ operations on Colored output."""
-    def __init__(self, color, s):
+    def __init__(self, color, s, always_color=False):
         super(ColoredString, self).__init__()
         self.s = s
         self.color = color
+        self.always_color = always_color
 
-    def __getattr__(self, att): 
+    def __getattr__(self, att):
              def func_help(*args, **kwargs):
                  result = getattr(self.s, att)(*args, **kwargs)
                  if isinstance(result, basestring):
@@ -55,12 +56,15 @@ class ColoredString(object):
                  else:
                      return result
              return func_help
-       
+
     @property
     def color_str(self):
-        if sys.stdout.isatty() and not DISABLE_COLOR:
-            return '%s%s%s' % (
-                getattr(colorama.Fore, self.color), self.s, colorama.Fore.RESET)
+        c = '%s%s%s' % (getattr(colorama.Fore, self.color), self.s, colorama.Fore.RESET)
+
+        if self.always_color:
+            return c
+        elif sys.stdout.isatty() and not DISABLE_COLOR:
+            return c
         else:
             return self.s
 
@@ -109,29 +113,29 @@ def clean(s):
     return txt
 
 
-def black(string):
-    return ColoredString('BLACK', string)
+def black(string, always=False):
+    return ColoredString('BLACK', string, always_color=always)
 
-def red(string):
-    return ColoredString('RED', string)
+def red(string, always=False):
+    return ColoredString('RED', string, always_color=always)
 
-def green(string):
-    return ColoredString('GREEN', string)
+def green(string, always=False):
+    return ColoredString('GREEN', string, always_color=always)
 
-def yellow(string):
-    return ColoredString('YELLOW', string)
+def yellow(string, always=False):
+    return ColoredString('YELLOW', string, always_color=always)
 
-def blue(string):
-    return ColoredString('BLUE', string)
+def blue(string, always=False):
+    return ColoredString('BLUE', string, always_color=always)
 
-def magenta(string):
-    return ColoredString('MAGENTA', string)
+def magenta(string, always=False):
+    return ColoredString('MAGENTA', string, always_color=always)
 
-def cyan(string):
-    return ColoredString('CYAN', string)
+def cyan(string, always=False):
+    return ColoredString('CYAN', string, always_color=always)
 
-def white(string):
-    return ColoredString('WHITE', string)
+def white(string, always=False):
+    return ColoredString('WHITE', string, always_color=always)
 
 def disable():
     """Disables colors."""
