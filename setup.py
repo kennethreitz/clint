@@ -11,8 +11,6 @@ except ImportError:
 
 import clint
 
-
-
 def publish():
     """Publish to PyPi"""
     os.system("python setup.py sdist upload")
@@ -32,10 +30,6 @@ setup(
     author='Kenneth Reitz',
     author_email='me@kennethreitz.com',
     url='https://github.com/kennethreitz/clint',
-    data_files=[
-        'README.rst',
-        'HISTORY.rst',
-    ],
     packages= [
         'clint',
         'clint.textui',
