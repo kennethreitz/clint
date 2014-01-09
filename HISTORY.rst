@@ -1,6 +1,20 @@
 History
 -------
 
+0.3.3
++++++
+* Fixed Python 3 build issues
+* Fixed README and HISTORY being installed to /usr
+* Support added for bold text
+
+0.3.2
++++++
+* Unknown
+
+0.3.1
++++++
+* Unknown
+
 0.3.0
 +++++
 
