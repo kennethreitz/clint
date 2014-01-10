@@ -11,9 +11,11 @@ try:
 except:
     import simplejson as json
 
-from clint import args
+from clint.arguments import Args
 from clint import piped_in
 from clint.textui import colored, puts, indent
+
+args = Args()
 
 if __name__ == '__main__':
 
