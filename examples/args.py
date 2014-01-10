@@ -6,8 +6,10 @@ import os
 
 sys.path.insert(0, os.path.abspath('..'))
 
-from clint import args
+from clint.arguments import Args 
 from clint.textui import puts, colored, indent
+
+args = Args()
 
 with indent(4, quote='>>>'):
     puts(colored.red('Aruments passed in: ') + str(args.all))
