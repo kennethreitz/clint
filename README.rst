@@ -91,7 +91,9 @@ I want to get data piped to stdin. ::
 
 I want to get the first commandline argument passed in. ::
 
-    >>> clint.args.get(0)
+    >>> from clint import arguments
+    >>> args = arguments.Args()
+    >>> args.get(0)
 
     # if no argument was passed, get returns None
 
@@ -147,7 +149,7 @@ Contribute
 ----------
 
 If you'd like to contribute, simply fork `the repository`_, commit your changes
-to the **develop** branch (or branch off of it), and send a pull request. Make
+to the **master** branch (or branch off of it), and send a pull request. Make
 sure you add yourself to AUTHORS_.
 
 
