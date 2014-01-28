@@ -50,8 +50,12 @@ class ColoredString(object):
     def __getattr__(self, att):
              def func_help(*args, **kwargs):
                  result = getattr(self.s, att)(*args, **kwargs)
-                 if isinstance(result, basestring):
-                     return self._new(result)
+                 try:
+                     is_result_string = isinstance(result, basestring)
+                 except NameError:
+                     is_result_string = isinstance(result, str)
+                 if is_result_string:
+                      return self._new(result)
                  elif isinstance(result, list):
                      return [self._new(x) for x in result]
                  else:
