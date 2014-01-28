@@ -1,6 +1,11 @@
 History
 -------
 
+0.3.4
++++++
+* Fixed Python 3 basestring deprecation
+* Fixed examples
+
 0.3.3
 +++++
 * Fixed Python 3 build issues
