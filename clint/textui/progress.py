@@ -100,7 +100,7 @@ def mill(it, label='', hide=HIDE_DEFAULT, expected_size=None, every=1):
         if _i == 100:
             return ' '
         else:
-            return MILL_CHARS[_i % len(MILL_CHARS)]
+            return MILL_CHARS[(_i / every) % len(MILL_CHARS)]
 
     def _show(_i):
         if not hide:
