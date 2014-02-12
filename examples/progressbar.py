@@ -16,7 +16,6 @@ if __name__ == '__main__':
         sleep(random() * 0.2)
         
     with progress.Bar(label="nonlinear", expected_size=10) as bar:
-        bar.show(0)
         last_val = 0
         for val in (1,2,3,9,10):
             sleep(2 * (val - last_val))
