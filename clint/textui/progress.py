@@ -106,44 +106,6 @@ def bar(it, label='', width=32, hide=HIDE_DEFAULT, empty_char=BAR_EMPTY_CHAR, fi
             yield item
             bar.show(i+1)
 
-# def bar(it, label='', width=32, hide=HIDE_DEFAULT, empty_char=BAR_EMPTY_CHAR, filled_char=BAR_FILLED_CHAR, expected_size=None, every=1):
-#     """Progress iterator. Wrap your iterables with it."""
-# 
-#     def _show(_i):
-#         if (time.time() - bar.etadelta) > ETA_INTERVAL:
-#             bar.etadelta = time.time()
-#             bar.ittimes = bar.ittimes[-ETA_SMA_WINDOW:]+[-(bar.start-time.time())/(_i+1)]
-#             bar.eta = sum(bar.ittimes)/float(len(bar.ittimes)) * (count-_i)
-#             bar.etadisp = time.strftime('%H:%M:%S', time.gmtime(bar.eta))
-#         x = int(width*_i/count)
-#         if not hide:
-#             if ((_i % every)==0 or         # True every "every" updates
-#                 (_i == count)):            # And when we're done
-#                 STREAM.write(BAR_TEMPLATE % (
-#                     label, filled_char*x, empty_char*(width-x), _i, count, bar.etadisp))
-#                 STREAM.flush()
-# 
-#     count = len(it) if expected_size is None else expected_size
-# 
-#     bar.start    = time.time()
-#     bar.ittimes  = []
-#     bar.eta      = 0
-#     bar.etadelta = time.time()
-#     bar.etadisp  = time.strftime('%H:%M:%S', time.gmtime(bar.eta))
-# 
-#     if count:
-#         _show(0)
-# 
-#     for i, item in enumerate(it):
-# 
-#         yield item
-#         _show(i+1)
-# 
-#     if not hide:
-#             STREAM.write('\n')
-#             STREAM.flush()
-
-
 def dots(it, label='', hide=HIDE_DEFAULT, every=1):
     """Progress iterator. Prints a dot for each item being iterated"""
 
