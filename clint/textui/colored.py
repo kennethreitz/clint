@@ -11,6 +11,7 @@ This module provides a simple and elegant wrapper for colorama.
 
 from __future__ import absolute_import
 
+import os
 import re
 import sys
 
@@ -37,7 +38,6 @@ else:
     DISABLE_COLOR = False
 
 
-
 class ColoredString(object):
     """Enhanced string for __len__ operations on Colored output."""
     def __init__(self, color, s, always_color=False, bold=False):
@@ -46,6 +46,8 @@ class ColoredString(object):
         self.color = color
         self.always_color = always_color
         self.bold = bold
+        if os.environ.get('CLINT_FORCE_COLOR'):
+            self.always_color = True
 
     def __getattr__(self, att):
         def func_help(*args, **kwargs):
