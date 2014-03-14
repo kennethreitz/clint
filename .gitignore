@@ -1,5 +1,11 @@
 .idea
+.project
+.settings
+.pydevproject
 MANIFEST
 *.pyc
 .tox
 build/
+clint.egg-info/
+dist/
+
