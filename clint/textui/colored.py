@@ -48,19 +48,19 @@ class ColoredString(object):
         self.bold = bold
 
     def __getattr__(self, att):
-             def func_help(*args, **kwargs):
-                 result = getattr(self.s, att)(*args, **kwargs)
-                 try:
-                     is_result_string = isinstance(result, basestring)
-                 except NameError:
-                     is_result_string = isinstance(result, str)
-                 if is_result_string:
-                      return self._new(result)
-                 elif isinstance(result, list):
-                     return [self._new(x) for x in result]
-                 else:
-                     return result
-             return func_help
+        def func_help(*args, **kwargs):
+            result = getattr(self.s, att)(*args, **kwargs)
+            try:
+                is_result_string = isinstance(result, basestring)
+            except NameError:
+                is_result_string = isinstance(result, str)
+            if is_result_string:
+                return self._new(result)
+            elif isinstance(result, list):
+                return [self._new(x) for x in result]
+            else:
+                return result
+        return func_help
 
     @property
     def color_str(self):
@@ -91,7 +91,10 @@ class ColoredString(object):
         __str__ = __unicode__
     else:
         def __str__(self):
-            return unicode(self).encode('utf8')
+            value = self.color_str
+            if isinstance(value, bytes):
+                return value
+            return value.encode('utf8')
 
     def __iter__(self):
         return iter(self.color_str)

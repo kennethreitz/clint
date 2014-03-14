@@ -42,5 +42,13 @@ class ColoredStringTestCase(unittest.TestCase):
         output = new_str.replace("world", "universe")
         assert output.s == "hello universe"
 
+    def test_py2_bytes_not_mangled(self):
+        from clint.textui.colored import ColoredString
+        # On python 2 make sure the same bytes come out as went in
+        new_str = ColoredString('RED', '\xe4')
+        assert '\xe4' in str(new_str)
+        from clint.textui import puts
+        puts(new_str)
+
 if __name__ == '__main__':
     unittest.main()
