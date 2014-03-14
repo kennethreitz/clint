@@ -1,6 +1,11 @@
 History
 -------
 
+0.3.5
++++++
+* progress.bar is now a context manager - doesn't require an iterable anymore (thanks to @jric)
+* Bug fixes
+
 0.3.4
 +++++
 * Fixed Python 3 basestring deprecation
