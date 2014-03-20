@@ -65,7 +65,7 @@ class ColoredString(object):
     @property
     def color_str(self):
         style = 'BRIGHT' if self.bold else 'NORMAL'
-        c = '%s%s%s%s' % (getattr(colorama.Fore, self.color), getattr(colorama.Style, style), self.s, colorama.Fore.RESET)
+        c = '%s%s%s%s%s' % (getattr(colorama.Fore, self.color), getattr(colorama.Style, style), self.s, colorama.Fore.RESET, getattr(colorama.Style, 'NORMAL'))
 
         if self.always_color:
             return c
