@@ -3,6 +3,7 @@
 
 """Clint Test Suite."""
 
+import os
 import unittest
 
 
@@ -49,6 +50,13 @@ class ColoredStringTestCase(unittest.TestCase):
         assert '\xe4' in str(new_str)
         from clint.textui import puts
         puts(new_str)
+
+    def test_clint_force_color_env_var(self):
+        from clint.textui.colored import ColoredString
+        os.environ['CLINT_FORCE_COLOR'] = "1"
+        new_str = ColoredString('RED', 'hello world')
+        assert new_str.always_color == True
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -109,6 +109,10 @@ I want to store a configuration file. ::
     # Windows: 'C:\\Users\\appuser\\AppData\\Local\\Company\\AppName\\config.ini'
     # Linux: '/home/appuser/.config/appname/config.ini'
 
+I want to force color output even if stdout is not a TTY:
+
+    $ export CLINT_FORCE_COLOR=1
+
 
 Installation
 ------------
