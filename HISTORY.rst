@@ -1,6 +1,14 @@
 History
 -------
 
+0.3.7
++++++
+* Clint now obeys the CLINT_FORCE_COLOR environmental variable
+
+0.3.6
++++++
+* Fixed faulty PyPI deployment
+
 0.3.5
 +++++
 * progress.bar is now a context manager - doesn't require an iterable anymore (thanks to @jric)
