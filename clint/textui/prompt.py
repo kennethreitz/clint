@@ -86,5 +86,5 @@ def query(prompt, default='', validators=None, batch=False):
             for validator in validators:
                 user_input = validator(user_input)
             return user_input
-        except Exception, e:
+        except Exception as e:
             puts(yellow(e.message))
