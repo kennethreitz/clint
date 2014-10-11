@@ -1,6 +1,13 @@
 History
 -------
 
+0.4.0
++++++
+* clint.textui.prompt now has a query function with validators! (thanks to @aeby) - see `examples/prompt.py`
+* Clint docs are now included in sdist (thanks to @alunduil)
+* Misc. bug fixes
+
+
 0.3.7
 +++++
 * Clint now obeys the CLINT_FORCE_COLOR environmental variable
