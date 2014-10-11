@@ -14,11 +14,6 @@ import sys
 import time
 
 STREAM = sys.stderr
-# Only show bar in terminals by default (better for piping, logging etc.)
-try:
-    HIDE_DEFAULT = not STREAM.isatty()
-except AttributeError:  # output does not support isatty()
-    HIDE_DEFAULT = True
 
 BAR_TEMPLATE = '%s[%s%s] %i/%i - %s\r'
 MILL_TEMPLATE = '%s %s %i/%i\r'
@@ -48,6 +43,7 @@ class Bar(object):
         self.label = label
         self.width = width
         self.hide = hide
+        # Only show bar in terminals by default (better for piping, logging etc.)
         if hide is None:
             try:
                 self.hide = not STREAM.isatty()
@@ -107,7 +103,7 @@ class Bar(object):
         return time.strftime('%H:%M:%S', time.gmtime(seconds))
 
 
-def bar(it, label='', width=32, hide=HIDE_DEFAULT, empty_char=BAR_EMPTY_CHAR,
+def bar(it, label='', width=32, hide=None, empty_char=BAR_EMPTY_CHAR,
         filled_char=BAR_FILLED_CHAR, expected_size=None, every=1):
     """Progress iterator. Wrap your iterables with it."""
 
@@ -121,7 +117,7 @@ def bar(it, label='', width=32, hide=HIDE_DEFAULT, empty_char=BAR_EMPTY_CHAR,
             bar.show(i + 1)
 
 
-def dots(it, label='', hide=HIDE_DEFAULT, every=1):
+def dots(it, label='', hide=None, every=1):
     """Progress iterator. Prints a dot for each item being iterated"""
 
     count = 0
@@ -143,7 +139,7 @@ def dots(it, label='', hide=HIDE_DEFAULT, every=1):
     STREAM.flush()
 
 
-def mill(it, label='', hide=HIDE_DEFAULT, expected_size=None, every=1):
+def mill(it, label='', hide=None, expected_size=None, every=1):
     """Progress iterator. Prints a mill while iterating over the items."""
 
     def _mill_char(_i):
