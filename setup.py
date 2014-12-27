@@ -24,7 +24,7 @@ required = ['args']
 setup(
     name='clint',
     version=clint.__version__,
-    description='Python Command-line Application Tools',
+    description='Python Command Line Interface Tools',
     long_description=open('README.rst').read() + '\n\n' +
                      open('HISTORY.rst').read(),
     author='Kenneth Reitz',
