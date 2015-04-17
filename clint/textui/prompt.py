@@ -11,6 +11,7 @@ Module for simple interactive prompts handling
 from __future__ import absolute_import, print_function
 
 from re import match, I
+import getpass
 
 from .core import puts
 from .colored import yellow
@@ -59,7 +60,7 @@ def yn(prompt, default='y', batch=False):
             return True if default == 'n' else False
 
 
-def query(prompt, default='', validators=None, batch=False):
+def query(prompt, default='', validators=None, batch=False, mask_input=False):
     # Set the nonempty validator as default
     if validators is None:
         validators = [RegexValidator(r'.+')]
@@ -76,7 +77,8 @@ def query(prompt, default='', validators=None, batch=False):
         # If batch option is True then auto reply
         # with default input
         if not batch:
-            user_input = raw_input(prompt).strip() or default
+            user_input_fn = getpass.getpass if mask_input else raw_input
+            user_input = user_input_fn(prompt).strip() or default
         else:
             print(prompt)
             user_input = ''
