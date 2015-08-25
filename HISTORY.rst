@@ -1,6 +1,11 @@
 History
 -------
 
+0.5.0
++++++
+* Added option prompt
+
+
 0.4.1
 +++++
 * Fix bug in logic that decides whether progress bars should be hidden or not
