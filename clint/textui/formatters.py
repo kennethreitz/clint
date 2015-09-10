@@ -9,12 +9,14 @@ Core TextUI functionality for text formatting.
 """
 
 from __future__ import absolute_import
+from contextlib import contextmanager
 
 from .colored import ColoredString, clean
 from ..utils import tsplit, schunk
 
 
 NEWLINES = ('\n', '\r', '\r\n')
+MAX_WIDTHS = []
 
 
 def min_width(string, cols, padding=' '):
@@ -33,7 +35,57 @@ def min_width(string, cols, padding=' '):
     return '\n'.join(stack)
 
 
-def max_width(string, cols, separator='\n'):
+def _get_max_width_context():
+    return MAX_WIDTHS
+
+@contextmanager
+def _max_width_context():
+    """Max width context manager."""
+    try:
+        yield
+    finally:
+        MAX_WIDTHS.pop()
+
+def max_width(*args, **kwargs):
+    """Returns formatted text or context manager for textui:puts.
+
+        >>> from clint.textui import puts, max_width
+        >>> max_width('123 5678', 8)
+        '123 5678'
+        >>> max_width('123 5678', 7)
+        '123 \n5678'
+        >>> with max_width(7):
+        ...     puts('123 5678')
+        '123 \n5678'
+    """
+    args = list(args)
+
+    if not args:
+        args.append(kwargs.get('string'))
+        args.append(kwargs.get('cols'))
+        args.append(kwargs.get('separator'))
+    elif len(args) == 1:
+        args.append(kwargs.get('cols'))
+        args.append(kwargs.get('separator'))
+    elif len(args) == 2:
+        args.append(kwargs.get('separator'))
+
+    string, cols, separator = args
+    if separator is None:
+        separator = '\n'  # default value
+    if cols is None:
+        # cols should be specified vitally
+        # because string can be specified at textui:puts function
+        string, cols = cols, string
+
+    if string is None:
+        MAX_WIDTHS.append((cols, separator))
+        return _max_width_context()
+    else:
+        return _max_width_formatter(string, cols, separator)
+
+
+def _max_width_formatter(string, cols, separator='\n'):
     """Returns a freshly formatted
     :param string: string to be formatted
     :type string: basestring or clint.textui.colorred.ColoredString
@@ -41,12 +93,6 @@ def max_width(string, cols, separator='\n'):
     :type cols: int
     :param separator: separator to break rows
     :type separator: basestring
-
-        >>> formatters.max_width('123 5678', 8)
-        '123 5678'
-        >>> formatters.max_width('123 5678', 7)
-        '123 \n5678'
-
     """
 
     is_color = isinstance(string, ColoredString)
