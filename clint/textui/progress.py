@@ -109,8 +109,8 @@ def bar(it, label='', width=32, hide=None, empty_char=BAR_EMPTY_CHAR,
 
     count = len(it) if expected_size is None else expected_size
 
-    with Bar(label=label, width=width, hide=hide, empty_char=BAR_EMPTY_CHAR,
-             filled_char=BAR_FILLED_CHAR, expected_size=count, every=every) \
+    with Bar(label=label, width=width, hide=hide, empty_char=empty_char,
+             filled_char=filled_char, expected_size=count, every=every) \
             as bar:
         for i, item in enumerate(it):
             yield item
