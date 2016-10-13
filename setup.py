@@ -54,4 +54,5 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Topic :: Terminals :: Terminal Emulators/X Terminals',
     ],
+    test_suite='test_clint',
 )
