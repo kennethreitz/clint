@@ -36,7 +36,7 @@ def min_width(string, cols, padding=' '):
 def max_width(string, cols, separator='\n'):
     """Returns a freshly formatted
     :param string: string to be formatted
-    :type string: basestring or clint.textui.colorred.ColoredString
+    :type string: basestring or clint.textui.colored.ColoredString
     :param cols: max width the text to be formatted
     :type cols: int
     :param separator: separator to break rows
