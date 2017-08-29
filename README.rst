@@ -1,4 +1,4 @@
-Clint: Python Command-line Application Tools
+Clint: Python Command-line Interface Tools
 ============================================
 
 **Clint** is a module filled with a set of awesome tools for developing
