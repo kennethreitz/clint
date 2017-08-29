@@ -15,7 +15,7 @@ import sys
 
 from contextlib import contextmanager
 
-from .formatters import max_width, min_width
+from .formatters import max_width, min_width, _get_max_width_context
 from .cols import columns
 from ..utils import tsplit
 
@@ -53,6 +53,11 @@ def _indent(indent=0, quote='', indent_char=' '):
 
 def puts(s='', newline=True, stream=STDOUT):
     """Prints given string to stdout."""
+    max_width_ctx = _get_max_width_context()
+    if max_width_ctx:
+        cols, separator = max_width_ctx[-1]
+        s = max_width(s, cols, separator)
+
     if newline:
         s = tsplit(s, NEWLINES)
         s = map(str, s)
