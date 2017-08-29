@@ -18,6 +18,7 @@ import sys
 PY3 = sys.version_info[0] >= 3
 
 from ..packages import colorama
+from ..utils import basestring
 
 __all__ = (
     'red', 'green', 'yellow', 'blue',
