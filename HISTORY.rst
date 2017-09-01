@@ -77,7 +77,7 @@ History
 0.2.3
 +++++
 
-* Only init colors if they are used (iPython compatability)
+* Only init colors if they are used (iPython compatibility)
 * New progress module
 * Various bugfixes
 
